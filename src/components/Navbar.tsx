@@ -6,7 +6,7 @@ const Navbar = () => {
     <NavBar bg='light' expand='lg' sticky='top'>
         <Container>
             <NavBar.Brand href='/blogs'>Blog API</NavBar.Brand>
-            <NavBar.Toggle aria-controls='responsive-navbar-nav' />
+            <NavBar.Toggle aria-controls='basic-navbar-nav' />
             <NavBar.Collapse id='basic-navbar-nav'>
                 <Nav className='me-auto'>
                     <Nav.Link href='/log-in'>Log In</Nav.Link>
