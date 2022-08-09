@@ -1,13 +1,25 @@
 import React from 'react'
 import { Navbar } from './components/components-exports'
+import { CreateBlog, Signup, Login, Dashboard } from './pages/pages-exports'
+import { Route, Routes } from 'react-router-dom'
+import { HashRouter } from 'react-router-dom'
+
 import 'bootswatch/dist/morph/bootstrap.min.css'
 import './App.css'
 
 function App() {
 	return (
-		<div className='app-main'>
-			<Navbar />
-		</div>
+		<HashRouter>
+			<div className='app-main'>
+				<Navbar />
+				<Routes>
+					<Route path='/' element={<Dashboard />} />
+					<Route path='/create' element={<CreateBlog />} />
+					<Route path='/sign-up' element={<Signup />} />
+					<Route path='/log-in' element={<Login />} />
+				</Routes>
+			</div>
+		</HashRouter>
 	)
 }
 
