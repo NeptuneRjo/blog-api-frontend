@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar } from './components/components-exports'
-import { CreateBlog, Signup, Login, Dashboard } from './pages/pages-exports'
+import {
+	CreateBlog,
+	Signup,
+	Login,
+	Dashboard,
+	Blog,
+} from './pages/pages-exports'
 import { Route, Routes } from 'react-router-dom'
 import { HashRouter } from 'react-router-dom'
 
@@ -40,6 +46,7 @@ const App: React.FC = () => {
 			<div className='app-main'>
 				<Navbar />
 				<Routes>
+					<Route path='/blog/:id' element={<Blog />} />
 					<Route path='create' element={<CreateBlog />} />
 					<Route path='sign-up' element={<Signup />} />
 					<Route path='log-in' element={<Login />} />
