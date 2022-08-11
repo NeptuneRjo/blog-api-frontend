@@ -1,7 +1,6 @@
 import React from 'react'
 import { Blog } from '../App' // Interface
 import { BlogCard } from '../components/components-exports'
-import { Container, Row, Col } from 'react-bootstrap'
 
 export type Props = {
 	blogs: Blog[] // the prop blogs has the type 'Array of blogs'
