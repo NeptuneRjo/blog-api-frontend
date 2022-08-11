@@ -1,4 +1,4 @@
-.dashboard-main {
+.main {
     display: flex;
     /* justify-content: center; */
     flex-direction: column;
@@ -6,17 +6,17 @@
     min-height: 100vh;
 }
 
-.dashboard-grid {
+.grid {
     display: grid;
     grid-template-columns: 1fr;
     max-width: 75vw;
     width: 100%;
 }
 
-.dashboard-grid-item {
-    margin: .75rem 0;
+.title {
+    margin: 3rem;
 }
 
-.page-title {
-    margin: 3rem;
+.grid-item {
+    margin: .75rem 0;
 }
