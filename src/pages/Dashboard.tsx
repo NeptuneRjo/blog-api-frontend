@@ -8,12 +8,12 @@ export type Props = {
 
 const Dashboard: React.FC<Props> = ({ blogs }: Props) => {
 	return (
-		<div className='dashboard-main'>
-			<h3 className='page-title'>Blogs</h3>
+		<div className='dashboard main'>
+			<h3 className='title'>Blogs</h3>
 			{blogs.length > 0 && (
-				<div className='dashboard-grid'>
+				<div className='dashboard grid'>
 					{blogs.map((blog) => (
-						<div className='dashboard-grid-item'>
+						<div className='grid-item'>
 							<BlogCard blog={blog} />
 						</div>
 					))}
