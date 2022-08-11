@@ -19,7 +19,9 @@ const BlogCard: React.FC<Props> = ({ blog }: Props) => {
 						{formatDistanceToNow(new Date(blog.date), { addSuffix: true })}
 					</div>
 				</Card.Text>
-				<Button variant='primary'>Visit blog</Button>
+				<Button variant='primary' href={`#/blog/${blog._id}`}>
+					Visit blog
+				</Button>
 			</Card.Body>
 		</Card>
 	)
