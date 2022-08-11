@@ -19,32 +19,41 @@ export const fetchBlog = async (
 	return json
 }
 
+export const addCommentToBlog = async (
+	newComment: CommentInt,
+	comments: CommentInt[],
+	id: string | undefined
+): Promise<undefined> => {
+	const response: Response = await fetch(`/api/blogs/${id}`, {
+		method: 'PATCH',
+		body: JSON.stringify({
+			comments: [newComment, ...comments],
+		}),
+	})
+
+	return undefined
+	// Set the useEffect hook to fire on changes to the comments state,
+	// When the blog is updated with the new comment, the page will reload and
+	// the blog will be fetched again
+}
+
 const Blog = () => {
 	const { id } = useParams()
 
 	const [blog, setBlog] = useState<BlogInterface | undefined>(undefined)
-	const [comments, setComments] = useState<CommentInt[] | []>([])
+	const [comments, setComments] = useState<CommentInt[] | undefined>(undefined)
 	const [error, setError] = useState<unknown | null>(null)
-
-	const addCommentToBlog = async (newComment: CommentInt): Promise<void> => {
-		const response: Response = await fetch(`/api/blogs/${id}`, {
-			method: 'PATCH',
-			body: JSON.stringify({
-				comments: [newComment, ...comments],
-			}),
-		})
-	}
 
 	useEffect(() => {
 		;(async function setStateToReturnedBlog() {
 			try {
 				const fetchedBlog: BlogInterface = await fetchBlog(id)
 				setBlog(fetchedBlog)
-			} catch (error) {
-				setError(error)
+			} catch (err) {
+				setError(err)
 			}
 		})()
-	}, [])
+	}, [comments])
 
 	return (
 		<div className='blog main'>
