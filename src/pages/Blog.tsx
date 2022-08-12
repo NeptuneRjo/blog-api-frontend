@@ -1,49 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Blog as BlogInterface } from '../App'
 import { Form, Button } from 'react-bootstrap'
+import { fetchBlog, updateBlogWithNewComment } from '../API/api-exports'
+import { CommentInt, BlogInt } from '../types'
 
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
-
-export interface CommentInt {
-	body: string
-	username: string
-}
-
-export const fetchBlog = async (
-	id: string | undefined
-): Promise<BlogInterface> => {
-	const response: Response = await fetch(`/api/blogs/${id}`)
-	const json: BlogInterface = await response.json()
-
-	return json
-}
-
-export const updateBlogWithNewComment = async (
-	newComment: CommentInt,
-	blog: BlogInterface,
-	id: string | undefined
-): Promise<BlogInterface> => {
-	const newCommentsArray: CommentInt[] = [newComment, ...blog.comments]
-
-	const response: Response = await fetch(`/api/blogs/${id}`, {
-		method: 'PATCH',
-		body: JSON.stringify({
-			comments: newCommentsArray,
-		}),
-		headers: {
-			'Content-type': 'application/json; charset=UTF-8',
-		},
-	})
-	const json: BlogInterface = await response.json()
-
-	return json
-}
 
 const Blog = () => {
 	const { id } = useParams()
 
-	const [blog, setBlog] = useState<BlogInterface | undefined>(undefined)
+	const [blog, setBlog] = useState<BlogInt | undefined>(undefined)
 	const [comments, setComments] = useState<CommentInt[] | []>([])
 	const [error, setError] = useState<unknown | null>(null)
 
@@ -53,7 +19,7 @@ const Blog = () => {
 	useEffect(() => {
 		;(async function setStateToReturnedBlog() {
 			try {
-				const fetchedBlog: BlogInterface = await fetchBlog(id)
+				const fetchedBlog: BlogInt = await fetchBlog(id)
 				setBlog(fetchedBlog)
 				setComments(fetchedBlog.comments)
 			} catch (err) {
@@ -74,7 +40,7 @@ const Blog = () => {
 
 		if (blog !== undefined) {
 			try {
-				const updatedBlog: BlogInterface = await updateBlogWithNewComment(
+				const updatedBlog: BlogInt = await updateBlogWithNewComment(
 					newComment,
 					blog,
 					id

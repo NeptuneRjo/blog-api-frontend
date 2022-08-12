@@ -1,9 +1,4 @@
-import { Blog as BlogInt } from '../App'
-
-export interface CommentInt {
-	body: string
-	username: string
-}
+import { CommentInt, BlogInt } from '../types'
 
 const updateBlogWithNewComment = async (
 	newComment: CommentInt,

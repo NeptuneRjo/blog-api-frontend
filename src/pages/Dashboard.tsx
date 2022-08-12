@@ -1,9 +1,9 @@
 import React from 'react'
-import { Blog } from '../App' // Interface
 import { BlogCard } from '../components/components-exports'
+import { BlogInt } from '../types'
 
-export type Props = {
-	blogs: Blog[] // the prop blogs has the type 'Array of blogs'
+type Props = {
+	blogs: BlogInt[]
 }
 
 const Dashboard: React.FC<Props> = ({ blogs }: Props) => {

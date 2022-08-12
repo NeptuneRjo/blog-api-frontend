@@ -1,11 +1,12 @@
 import React from 'react'
-import { Blog } from '../App'
 import { Card, Button } from 'react-bootstrap'
 
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
 
-export type Props = {
-	blog: Blog // blog prop has the typing of the Blog interface (blog object)
+import { BlogInt } from '../types'
+
+type Props = {
+	blog: BlogInt
 }
 
 const BlogCard: React.FC<Props> = ({ blog }: Props) => {

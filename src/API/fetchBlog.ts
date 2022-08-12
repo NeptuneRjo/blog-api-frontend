@@ -1,4 +1,4 @@
-import { Blog as BlogInt } from '../App'
+import { BlogInt } from '../types'
 
 const fetchBlog = async (id: string | undefined): Promise<BlogInt> => {
 	const response: Response = await fetch(`/api/blogs/${id}`)
