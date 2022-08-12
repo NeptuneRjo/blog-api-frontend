@@ -6,8 +6,8 @@ import { Form, Button } from 'react-bootstrap'
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
 
 export interface CommentInt {
-	title: string
-	author: string
+	body: string
+	username: string
 }
 
 export const fetchBlog = async (
@@ -19,41 +19,77 @@ export const fetchBlog = async (
 	return json
 }
 
-export const addCommentToBlog = async (
+export const updateBlogWithNewComment = async (
 	newComment: CommentInt,
-	comments: CommentInt[],
+	blog: BlogInterface,
 	id: string | undefined
-): Promise<undefined> => {
+): Promise<BlogInterface> => {
+	const newCommentsArray: CommentInt[] = [newComment, ...blog.comments]
+
 	const response: Response = await fetch(`/api/blogs/${id}`, {
 		method: 'PATCH',
 		body: JSON.stringify({
-			comments: [newComment, ...comments],
+			comments: newCommentsArray,
 		}),
+		headers: {
+			'Content-type': 'application/json; charset=UTF-8',
+		},
 	})
+	const json: BlogInterface = await response.json()
 
-	return undefined
-	// Set the useEffect hook to fire on changes to the comments state,
-	// When the blog is updated with the new comment, the page will reload and
-	// the blog will be fetched again
+	return json
 }
 
 const Blog = () => {
 	const { id } = useParams()
 
 	const [blog, setBlog] = useState<BlogInterface | undefined>(undefined)
-	const [comments, setComments] = useState<CommentInt[] | undefined>(undefined)
+	const [comments, setComments] = useState<CommentInt[] | []>([])
 	const [error, setError] = useState<unknown | null>(null)
+
+	const [username, setUsername] = useState<string>('')
+	const [body, setBody] = useState<string>('')
 
 	useEffect(() => {
 		;(async function setStateToReturnedBlog() {
 			try {
 				const fetchedBlog: BlogInterface = await fetchBlog(id)
 				setBlog(fetchedBlog)
+				setComments(fetchedBlog.comments)
 			} catch (err) {
 				setError(err)
 			}
 		})()
-	}, [comments])
+	}, [])
+
+	const handleCommentSubmit = async (
+		e: React.FormEvent<HTMLFormElement>
+	): Promise<void> => {
+		e.preventDefault()
+
+		const newComment = {
+			username,
+			body,
+		}
+
+		if (blog !== undefined) {
+			try {
+				const updatedBlog: BlogInterface = await updateBlogWithNewComment(
+					newComment,
+					blog,
+					id
+				)
+
+				setBlog(updatedBlog)
+				setComments(updatedBlog.comments)
+
+				setUsername('')
+				setBody('')
+			} catch (err) {
+				setError(err)
+			}
+		}
+	}
 
 	return (
 		<div className='blog main'>
@@ -69,25 +105,35 @@ const Blog = () => {
 					</div>
 					<div className='blog comments'>
 						<div className='blog comments-new'>
-							<Form>
+							<Form onSubmit={(e) => handleCommentSubmit(e)}>
 								<Form.Group className='mb-3' controlId='formBasicComment'>
 									<Form.Label>Comment</Form.Label>
-									<Form.Control as='textarea' placeholder='Enter a comment' />
+									<Form.Control
+										as='textarea'
+										placeholder='Enter a comment'
+										onChange={(e) => setBody(e.target.value)}
+										value={body}
+									/>
 								</Form.Group>
 								<Form.Group className='mb-3' controlId='formBasicAuthor'>
 									<Form.Label>Username</Form.Label>
-									<Form.Control placeholder='Enter your username' />
+									<Form.Control
+										placeholder='Enter your username'
+										onChange={(e) => setUsername(e.target.value)}
+										value={username}
+									/>
 								</Form.Group>
+								<Button type='submit'>Submit</Button>
 							</Form>
 						</div>
-						{blog.comments.length > 0 &&
-							blog.comments.map((comment) => (
+						{comments.length > 0 &&
+							comments.map((comment) => (
 								<div className='blog comments-grid'>
 									<div className='blog comment-body'></div>
-									<div className='blog comment-author'></div>
+									<div className='blog comment-author'>{comment.username}</div>
 								</div>
 							))}
-						{blog.comments.length === 0 && (
+						{comments.length === 0 && (
 							<div className='blog comment'>No comments yet...</div>
 						)}
 					</div>
