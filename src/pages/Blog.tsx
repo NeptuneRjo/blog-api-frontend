@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { fetchBlog, updateBlogWithNewComment } from '../API/api-exports'
 import { CommentInt, BlogInt } from '../types'
+import { Comment, CommentForm } from '../components/components-exports'
 
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
 
@@ -12,9 +13,6 @@ const Blog = () => {
 	const [blog, setBlog] = useState<BlogInt | undefined>(undefined)
 	const [comments, setComments] = useState<CommentInt[] | []>([])
 	const [error, setError] = useState<unknown | null>(null)
-
-	const [username, setUsername] = useState<string>('')
-	const [body, setBody] = useState<string>('')
 
 	useEffect(() => {
 		;(async function setStateToReturnedBlog() {
@@ -29,15 +27,15 @@ const Blog = () => {
 	}, [])
 
 	const handleCommentSubmit = async (
-		e: React.FormEvent<HTMLFormElement>
+		username: string,
+		body: string
 	): Promise<void> => {
-		e.preventDefault()
-
 		const newComment = {
 			username,
 			body,
 		}
 
+		// Because blog can be undefined, this check needs to be in place to prevent errors
 		if (blog !== undefined) {
 			try {
 				const updatedBlog: BlogInt = await updateBlogWithNewComment(
@@ -48,9 +46,6 @@ const Blog = () => {
 
 				setBlog(updatedBlog)
 				setComments(updatedBlog.comments)
-
-				setUsername('')
-				setBody('')
 			} catch (err) {
 				setError(err)
 			}
@@ -71,36 +66,16 @@ const Blog = () => {
 					</div>
 					<div className='blog comments'>
 						<div className='blog comments-new'>
-							<Form onSubmit={(e) => handleCommentSubmit(e)}>
-								<Form.Group className='mb-3' controlId='formBasicComment'>
-									<Form.Label>Comment</Form.Label>
-									<Form.Control
-										as='textarea'
-										placeholder='Enter a comment'
-										onChange={(e) => setBody(e.target.value)}
-										value={body}
-									/>
-								</Form.Group>
-								<Form.Group className='mb-3' controlId='formBasicAuthor'>
-									<Form.Label>Username</Form.Label>
-									<Form.Control
-										placeholder='Enter your username'
-										onChange={(e) => setUsername(e.target.value)}
-										value={username}
-									/>
-								</Form.Group>
-								<Button type='submit'>Submit</Button>
-							</Form>
+							<CommentForm handleCommentSubmit={handleCommentSubmit} />
 						</div>
 						{comments.length > 0 &&
 							comments.map((comment) => (
 								<div className='blog comments-grid'>
-									<div className='blog comment-body'></div>
-									<div className='blog comment-author'>{comment.username}</div>
+									<Comment comment={comment} />
 								</div>
 							))}
 						{comments.length === 0 && (
-							<div className='blog comment'>No comments yet...</div>
+							<div className='blog comments-none'>No comments yet...</div>
 						)}
 					</div>
 				</>
