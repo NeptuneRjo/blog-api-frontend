@@ -1,6 +1,5 @@
 import React from 'react'
 import { CommentInt } from '../types'
-import { Card } from 'react-bootstrap'
 
 type Props = {
 	comment: CommentInt
@@ -8,9 +7,9 @@ type Props = {
 
 const Comment: React.FC<Props> = ({ comment }: Props) => {
 	return (
-		<div className='card'>
-			<div className='card-body'>{comment.body}</div>
-			<div className='card-username'>~{comment.username}</div>
+		<div className='comment-main'>
+			<div className='comment-body'>{comment.body}</div>
+			<div className='comment-username'>~{comment.username}</div>
 		</div>
 	)
 }
