@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar } from './components/components-exports'
-import {
-	CreateBlog,
-	Signup,
-	Login,
-	Dashboard,
-	Blog,
-} from './pages/pages-exports'
+import { Dashboard, Blog } from './pages/pages-exports'
 import { Route, Routes } from 'react-router-dom'
 import { HashRouter } from 'react-router-dom'
 import { BlogInt } from './types'
@@ -36,9 +30,6 @@ const App: React.FC = () => {
 				<Navbar />
 				<Routes>
 					<Route path='/blog/:id' element={<Blog />} />
-					<Route path='create' element={<CreateBlog />} />
-					<Route path='sign-up' element={<Signup />} />
-					<Route path='log-in' element={<Login />} />
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
 				</Routes>
 			</div>

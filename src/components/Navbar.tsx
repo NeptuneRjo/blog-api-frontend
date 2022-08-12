@@ -10,10 +10,7 @@ const Navbar = () => {
 				<NavBar.Toggle aria-controls='basic-navbar-nav' />
 				<NavBar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
-						<Nav.Link href='#/log-in'>Log In</Nav.Link>
-						<Nav.Link>Sign Out</Nav.Link>
-						<Nav.Link href='#/sign-up'>Sign Up</Nav.Link>
-						<Nav.Link href='#/create'>Create a blog</Nav.Link>
+						<Nav.Link href='/'>View Blogs</Nav.Link>
 					</Nav>
 				</NavBar.Collapse>
 			</Container>
