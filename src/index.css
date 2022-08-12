@@ -50,4 +50,36 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    max-width: 75vw;
+}
+
+.comments-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: 2rem 0;
+}
+
+.comments-none {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0;
+    max-width: 75vw;
+}
+
+.card-body {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.card-username {
+    display: flex;
+    justify-content: flex-end;
+    padding: 5px;
 }
