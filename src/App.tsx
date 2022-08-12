@@ -9,24 +9,25 @@ import {
 } from './pages/pages-exports'
 import { Route, Routes } from 'react-router-dom'
 import { HashRouter } from 'react-router-dom'
-
 import { BlogInt } from './types'
+import { fetchAllBlogs } from './API/api-exports'
 
 import 'bootswatch/dist/morph/bootstrap.min.css'
 import './App.css'
 
 const App: React.FC = () => {
 	const [blogs, setBlogs] = useState<BlogInt[] | []>([])
+	const [error, setError] = useState<unknown | null>(null)
 
 	useEffect(() => {
-		const fetchBlogs = async (): Promise<void> => {
-			const response: Response = await fetch('/api/blogs')
-			const json: BlogInt[] = await response.json()
-
-			setBlogs(json)
-		}
-
-		fetchBlogs()
+		;(async function setStateToReturnedBlogs() {
+			try {
+				const fetchedBlogs = await fetchAllBlogs()
+				setBlogs(fetchedBlogs)
+			} catch (err) {
+				setError(err)
+			}
+		})()
 	}, [])
 
 	return (
