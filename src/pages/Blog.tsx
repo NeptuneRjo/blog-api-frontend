@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
 import { fetchBlog, updateBlogWithNewComment } from '../API/api-exports'
 import { CommentInt, BlogInt } from '../types'
 import { Comment, CommentForm } from '../components/components-exports'
