@@ -12,8 +12,3 @@ export interface BlogInt {
 	date: string
 	title: string
 }
-
-// Props passed from App to Dashboard component
-export type DashboardProps = {
-	blogs: BlogInt[]
-}
