@@ -1,6 +1,5 @@
 .main {
     display: flex;
-    /* justify-content: center; */
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
@@ -57,14 +56,14 @@
 .comments-grid {
     display: grid;
     grid-template-columns: 1fr;
-    margin: 2rem 0;
+    margin: 10rem 0;
 }
 
 .comments-none {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 2rem 0;
+    margin: 10rem 0;
 }
 
 .comment-main {
@@ -91,5 +90,10 @@
 @media screen and (min-width: 850px) {
     .comment-main {
         max-width: 50vw;
+    }
+
+    .comments {
+        max-width: 50vw;
+        width: 100%;
     }
 }

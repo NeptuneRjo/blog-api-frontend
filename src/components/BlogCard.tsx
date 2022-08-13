@@ -14,7 +14,11 @@ const BlogCard: React.FC<Props> = ({ blog }: Props) => {
 		<Card>
 			<Card.Body>
 				<Card.Header as='h5'>{blog.title.toUpperCase()}</Card.Header>
-				<Card.Text style={{ margin: '1rem 0rem' }}>
+				<Card.Text
+					style={{
+						margin: '1rem',
+					}}
+				>
 					<div>Written by {blog.author}</div>
 					<div>
 						{formatDistanceToNow(new Date(blog.date), { addSuffix: true })}
