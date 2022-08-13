@@ -64,6 +64,7 @@ const Blog = () => {
 						<p className='blog text'>{blog?.body}</p>
 					</div>
 					<div className='blog comments'>
+						<h3 className='title'>Comments</h3>
 						<div className='blog comments-new'>
 							<CommentForm handleCommentSubmit={handleCommentSubmit} />
 						</div>
