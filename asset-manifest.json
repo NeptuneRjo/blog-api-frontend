@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/blog-api-frontend/static/css/main.afb542a5.css",
+    "main.js": "/blog-api-frontend/static/js/main.8ceab97c.js",
+    "index.html": "/blog-api-frontend/index.html",
+    "main.afb542a5.css.map": "/blog-api-frontend/static/css/main.afb542a5.css.map",
+    "main.8ceab97c.js.map": "/blog-api-frontend/static/js/main.8ceab97c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.afb542a5.css",
+    "static/js/main.8ceab97c.js"
+  ]
+}
