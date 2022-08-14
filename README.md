@@ -3,6 +3,7 @@
 A simple frontend React-Typescript application used to view blogs retrieved from my Blog API. Styled with bootstrap.
 
 Visit [here]()
+Visit the API repo [here](https://github.com/NeptuneRjo/blog-api)
 
 # Screenshots and Visuals
 
