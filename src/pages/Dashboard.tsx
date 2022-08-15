@@ -1,5 +1,5 @@
 import React from 'react'
-import { BlogCard } from '../components/components-exports'
+import { BlogCard, Hero } from '../components/components-exports'
 import { BlogInt } from '../types'
 
 type Props = {
@@ -9,6 +9,9 @@ type Props = {
 const Dashboard: React.FC<Props> = ({ blogs }: Props) => {
 	return (
 		<div className='dashboard main'>
+			<div className='dashboard hero'>
+				<Hero />
+			</div>
 			<h3 className='title'>Blogs</h3>
 			{blogs.length > 0 && (
 				<div className='dashboard grid'>
