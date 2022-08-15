@@ -103,6 +103,11 @@
         max-width: 50vw;
     }
 
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
     .comments {
         max-width: 50vw;
         width: 100%;
@@ -111,6 +116,13 @@
 
 @media screen and (min-width: 990px) {
     .hero-main {
-        padding: 6rem 2rem;
+        padding: 6rem;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
     }
 }
