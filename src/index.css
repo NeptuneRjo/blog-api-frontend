@@ -87,6 +87,17 @@
     padding: 5px;
 }
 
+.hero-main {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background-color: #e4ebf5;
+    margin-bottom: 5rem;
+    padding: 5rem 1rem;
+    box-shadow: inset 0 0 10px 0 #c5ccd4;
+    min-height: 35vh;
+}
+
 @media screen and (min-width: 850px) {
     .comment-main {
         max-width: 50vw;
@@ -95,5 +106,11 @@
     .comments {
         max-width: 50vw;
         width: 100%;
+    }
+}
+
+@media screen and (min-width: 990px) {
+    .hero-main {
+        padding: 6rem 2rem;
     }
 }
