@@ -5,7 +5,7 @@ A simple frontend React-Typescript application used to view blogs retrieved from
 Visit [here](https://neptunerjo.github.io/blog-api-frontend)  
 Visit the API repo [here](https://github.com/NeptuneRjo/blog-api)
 
-![Gif of page being used](page.gif)
+![Gif of page being used]()
 
 # Installation and Setup
 
