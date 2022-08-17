@@ -3,15 +3,18 @@ import { Navbar } from './components/components-exports'
 import { Dashboard, Blog } from './pages/pages-exports'
 import { Route, Routes } from 'react-router-dom'
 import { HashRouter } from 'react-router-dom'
-import { BlogInt } from './types'
-import { fetchAllBlogs } from './API/api-exports'
+import { BlogInt, CleanUserInt } from './types'
+import { fetchAllBlogs, fetchUser } from './API/api-exports'
 
 import 'bootswatch/dist/morph/bootstrap.min.css'
 import './App.css'
 
 const App: React.FC = () => {
 	const [blogs, setBlogs] = useState<BlogInt[] | []>([])
-	const [error, setError] = useState<unknown | null>(null)
+	const [user, setUser] = useState<CleanUserInt | undefined>(undefined)
+
+	const [blogError, setBlogError] = useState<unknown | null>(null)
+	const [userError, setUserError] = useState<unknown | null>(null)
 
 	useEffect(() => {
 		;(async function setStateToReturnedBlogs() {
@@ -19,7 +22,16 @@ const App: React.FC = () => {
 				const fetchedBlogs = await fetchAllBlogs()
 				setBlogs(fetchedBlogs)
 			} catch (err) {
-				setError(err)
+				setBlogError(err)
+			}
+		})()
+		;(async function setStateToReturnUser() {
+			try {
+				const fetchedUser = await fetchUser()
+				console.log(fetchedUser)
+				setUser(fetchedUser)
+			} catch (err) {
+				setUserError(err)
 			}
 		})()
 	}, [])
@@ -27,7 +39,7 @@ const App: React.FC = () => {
 	return (
 		<HashRouter>
 			<div className='app-main'>
-				<Navbar />
+				<Navbar user={user} />
 				<Routes>
 					<Route path='/blog/:id' element={<Blog />} />
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
