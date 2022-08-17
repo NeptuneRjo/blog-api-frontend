@@ -12,3 +12,19 @@ export interface BlogInt {
 	date: string
 	title: string
 }
+
+export interface UserInt {
+	email: string
+	username: string
+	password: string
+	_v: number
+	_id: string
+	role: string
+}
+
+export interface CleanUserInt {
+	email: string
+	username: string
+	_id: string
+	role: string
+}
