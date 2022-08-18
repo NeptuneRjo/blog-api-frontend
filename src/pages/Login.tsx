@@ -4,7 +4,7 @@ import { CleanUserInt } from '../types'
 import { loginUser } from '../API/api-exports'
 
 type Props = {
-	setUser: React.Dispatch<React.SetStateAction<CleanUserInt | undefined>>
+	setUser: React.Dispatch<React.SetStateAction<CleanUserInt | null>>
 }
 
 const Login: React.FC<Props> = ({ setUser }: Props) => {
