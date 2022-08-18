@@ -11,7 +11,7 @@ import './App.css'
 
 const App: React.FC = () => {
 	const [blogs, setBlogs] = useState<BlogInt[] | []>([])
-	const [user, setUser] = useState<CleanUserInt | undefined>(undefined)
+	const [user, setUser] = useState<CleanUserInt | null>(null)
 
 	const [blogError, setBlogError] = useState<unknown | null>(null)
 	const [userError, setUserError] = useState<unknown | null>(null)
@@ -26,7 +26,7 @@ const App: React.FC = () => {
 			}
 		})()
 
-		if (user === undefined) {
+		if (user === null) {
 			;(async function setStateToReturnUser() {
 				try {
 					const fetchedUser = await fetchUser()
@@ -41,7 +41,7 @@ const App: React.FC = () => {
 	return (
 		<HashRouter>
 			<div className='app-main'>
-				<Navbar user={user} />
+				<Navbar user={user} setUser={setUser} />
 				<Routes>
 					<Route path='/blog/:id' element={<Blog />} />
 					<Route path='/login' element={<Login setUser={setUser} />} />
