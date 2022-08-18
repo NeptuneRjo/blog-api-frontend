@@ -5,9 +5,8 @@ const signupUser = async (
 	password: string
 ): Promise<CleanUserInt | null> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
-	const local = 'http://localhost:4000'
 
-	const response: Response = await fetch(`${local}/api/users/signup`, {
+	const response: Response = await fetch(`/api/users/signup`, {
 		method: 'POST',
 		body: JSON.stringify({
 			email,

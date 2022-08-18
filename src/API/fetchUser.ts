@@ -4,10 +4,13 @@ import { CleanUserInt } from '../types'
 const fetchUser = async (): Promise<CleanUserInt | null> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
-	const response: Response = await fetch('/api/users', {
+	const response: Response = await fetch(`/api/users`, {
+		headers: {
+			'Content-type': 'application/json; charset=UTF-8',
+		},
 		credentials: 'same-origin',
 	})
-	const json: CleanUserInt = await response.json()
+	const json: CleanUserInt | null = await response.json()
 
 	return json
 }
