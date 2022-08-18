@@ -25,14 +25,17 @@ const App: React.FC = () => {
 				setBlogError(err)
 			}
 		})()
-		;(async function setStateToReturnUser() {
-			try {
-				const fetchedUser = await fetchUser()
-				setUser(fetchedUser)
-			} catch (err) {
-				setUserError(err)
-			}
-		})()
+
+		if (user === undefined) {
+			;(async function setStateToReturnUser() {
+				try {
+					const fetchedUser = await fetchUser()
+					setUser(fetchedUser)
+				} catch (err) {
+					setUserError(err)
+				}
+			})()
+		}
 	}, [])
 
 	return (
@@ -41,7 +44,7 @@ const App: React.FC = () => {
 				<Navbar user={user} />
 				<Routes>
 					<Route path='/blog/:id' element={<Blog />} />
-					<Route path='/login' element={<Login />} />
+					<Route path='/login' element={<Login setUser={setUser} />} />
 					<Route path='/signup' element={<Signup />} />
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
 				</Routes>
