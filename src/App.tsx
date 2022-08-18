@@ -25,7 +25,6 @@ const App: React.FC = () => {
 				setBlogError(err)
 			}
 		})()
-
 		if (user === null) {
 			;(async function setStateToReturnUser() {
 				try {
