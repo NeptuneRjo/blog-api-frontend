@@ -40,7 +40,7 @@ const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
 						<Nav className='me-auto'>
 							<NavBar.Text>Signed in as {user?.username}</NavBar.Text>
 							<Nav.Link href='#/'>View Blogs</Nav.Link>
-							<Nav.Link>Log out</Nav.Link>
+							<Nav.Link onClick={() => handleLogout()}>Log out</Nav.Link>
 						</Nav>
 					)}
 				</NavBar.Collapse>
