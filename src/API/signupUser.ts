@@ -2,7 +2,8 @@ import { CleanUserInt } from '../types'
 
 const signupUser = async (
 	email: string,
-	password: string
+	password: string,
+	username: string
 ): Promise<CleanUserInt | null> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
@@ -11,6 +12,7 @@ const signupUser = async (
 		body: JSON.stringify({
 			email,
 			password,
+			username,
 		}),
 		headers: {
 			'Content-type': 'application/json; charset=UTF-8',
