@@ -1,4 +1,4 @@
-import { UserInt, CleanUserInt } from '../types'
+import { CleanUserInt } from '../types'
 
 // CleanUserInt is the User model without sensitive information
 const fetchUser = async (): Promise<CleanUserInt | null> => {
