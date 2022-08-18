@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Navbar } from './components/components-exports'
-import { Dashboard, Blog } from './pages/pages-exports'
+import { Dashboard, Blog, Login, Signup } from './pages/pages-exports'
 import { Route, Routes } from 'react-router-dom'
 import { HashRouter } from 'react-router-dom'
 import { BlogInt, CleanUserInt } from './types'
@@ -28,7 +28,6 @@ const App: React.FC = () => {
 		;(async function setStateToReturnUser() {
 			try {
 				const fetchedUser = await fetchUser()
-				console.log(fetchedUser)
 				setUser(fetchedUser)
 			} catch (err) {
 				setUserError(err)
@@ -42,6 +41,8 @@ const App: React.FC = () => {
 				<Navbar user={user} />
 				<Routes>
 					<Route path='/blog/:id' element={<Blog />} />
+					<Route path='/login' element={<Login />} />
+					<Route path='/signup' element={<Signup />} />
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
 				</Routes>
 			</div>
