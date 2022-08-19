@@ -11,7 +11,7 @@ type Props = {
 
 const BlogCard: React.FC<Props> = ({ blog }: Props) => {
 	return (
-		<Card>
+		<Card style={{ height: '250px' }}>
 			<Card.Body>
 				<Card.Header as='h5'>{blog.title.toUpperCase()}</Card.Header>
 				<Card.Text
