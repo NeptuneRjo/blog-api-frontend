@@ -8,7 +8,6 @@ import {
 import { CommentInt, BlogInt, CleanUserInt } from '../types'
 import { Comment, CommentForm } from '../components/components-exports'
 import { Button } from 'react-bootstrap'
-import history from 'history/browser'
 
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
 
@@ -69,7 +68,6 @@ const Blog: React.FC<Props> = ({ user, setBlogs }: Props) => {
 			const newBlogList = await deleteBlog(id as string)
 			setBlogs(newBlogList)
 			setDeleting(false)
-			history.back()
 		} catch (err) {
 			console.log(err)
 		}

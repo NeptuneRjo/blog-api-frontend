@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { CleanUserInt, BlogInt } from '../types'
 import { createBlog } from '../API/api-exports'
-import history from 'history/browser'
 
 type Props = {
 	user: CleanUserInt | undefined
@@ -24,7 +23,6 @@ const CreateBlog: React.FC<Props> = ({ user, setBlogs }: Props) => {
 
 				setTitle('')
 				setBody('')
-				history.back()
 			}
 		} catch (error) {
 			console.log(error)
