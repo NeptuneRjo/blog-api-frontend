@@ -4,10 +4,10 @@ const createBlog = async (
 	title: string,
 	body: string,
 	author: string
-): Promise<BlogInt> => {
+): Promise<BlogInt[] | []> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
-	const response: Response = await fetch(`/api/blogs/`, {
+	const response: Response = await fetch(`/api/blogs`, {
 		method: 'POST',
 		body: JSON.stringify({
 			title,
@@ -20,7 +20,7 @@ const createBlog = async (
 		credentials: 'same-origin',
 	})
 
-	const json: BlogInt = await response.json()
+	const json: BlogInt[] | [] = await response.json()
 
 	return json
 }
