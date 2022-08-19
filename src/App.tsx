@@ -11,7 +11,7 @@ import './App.css'
 
 const App: React.FC = () => {
 	const [blogs, setBlogs] = useState<BlogInt[] | []>([])
-	const [user, setUser] = useState<CleanUserInt | null>(null)
+	const [user, setUser] = useState<CleanUserInt | undefined>(undefined)
 
 	const [blogError, setBlogError] = useState<unknown | null>(null)
 	const [userError, setUserError] = useState<unknown | null>(null)
@@ -42,7 +42,10 @@ const App: React.FC = () => {
 			<div className='app-main'>
 				<Navbar user={user} setUser={setUser} />
 				<Routes>
-					<Route path='/blog/:id' element={<Blog user={user} />} />
+					<Route
+						path='/blog/:id'
+						element={<Blog user={user} setBlogs={setBlogs} />}
+					/>
 					<Route path='/login' element={<Login setUser={setUser} />} />
 					<Route path='/signup' element={<Signup setUser={setUser} />} />
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
