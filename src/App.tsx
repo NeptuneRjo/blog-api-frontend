@@ -52,8 +52,14 @@ const App: React.FC = () => {
 						path='/blog/:id'
 						element={<Blog user={user} setBlogs={setBlogs} />}
 					/>
-					<Route path='/create-blog' element={<CreateBlog user={user} />} />
-					<Route path='/login' element={<Login setUser={setUser} />} />
+					<Route
+						path='/create-blog'
+						element={<CreateBlog user={user} setBlogs={setBlogs} />}
+					/>
+					<Route
+						path='/login'
+						element={<Login user={user} setUser={setUser} />}
+					/>
 					<Route path='/signup' element={<Signup setUser={setUser} />} />
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
 				</Routes>
