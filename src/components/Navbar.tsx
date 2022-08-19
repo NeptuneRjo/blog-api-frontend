@@ -4,8 +4,8 @@ import { CleanUserInt } from '../types'
 import { logoutUser } from '../API/api-exports'
 
 type Props = {
-	user: CleanUserInt | null
-	setUser: React.Dispatch<React.SetStateAction<CleanUserInt | null>>
+	user: CleanUserInt | undefined
+	setUser: React.Dispatch<React.SetStateAction<CleanUserInt | undefined>>
 }
 
 const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
@@ -21,7 +21,7 @@ const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
 				<NavBar.Brand href='#/'>Blog API</NavBar.Brand>
 				<NavBar.Toggle aria-controls='basic-navbar-nav' />
 				<NavBar.Collapse id='basic-navbar-nav'>
-					{user === null && (
+					{user === undefined && (
 						<Nav className='me-auto'>
 							<Nav.Link href='#/'>View Blogs</Nav.Link>
 							<Nav.Link href='#/login'>Log in</Nav.Link>
