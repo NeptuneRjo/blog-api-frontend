@@ -42,7 +42,7 @@ const App: React.FC = () => {
 			<div className='app-main'>
 				<Navbar user={user} setUser={setUser} />
 				<Routes>
-					<Route path='/blog/:id' element={<Blog />} />
+					<Route path='/blog/:id' element={<Blog user={user} />} />
 					<Route path='/login' element={<Login setUser={setUser} />} />
 					<Route path='/signup' element={<Signup setUser={setUser} />} />
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
