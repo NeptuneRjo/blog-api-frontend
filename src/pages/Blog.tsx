@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchBlog, updateBlogWithNewComment } from '../API/api-exports'
-import { CommentInt, BlogInt } from '../types'
+import { CommentInt, BlogInt, CleanUserInt } from '../types'
 import { Comment, CommentForm } from '../components/components-exports'
 
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
 
-const Blog = () => {
+type Props = {
+	user: CleanUserInt | null
+}
+
+const Blog: React.FC<Props> = ({ user }: Props) => {
 	const { id } = useParams()
 
 	const [blog, setBlog] = useState<BlogInt | undefined>(undefined)
@@ -66,7 +70,10 @@ const Blog = () => {
 					<div className='blog comments'>
 						<h3 className='title'>Comments</h3>
 						<div className='blog comments-new'>
-							<CommentForm handleCommentSubmit={handleCommentSubmit} />
+							<CommentForm
+								handleCommentSubmit={handleCommentSubmit}
+								user={user}
+							/>
 						</div>
 						{comments.length > 0 &&
 							comments.map((comment) => (
