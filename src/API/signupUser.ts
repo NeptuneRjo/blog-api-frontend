@@ -4,7 +4,7 @@ const signupUser = async (
 	email: string,
 	password: string,
 	username: string
-): Promise<CleanUserInt | null> => {
+): Promise<CleanUserInt | undefined> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
 	const response: Response = await fetch(`/api/users/signup`, {
@@ -20,7 +20,7 @@ const signupUser = async (
 		credentials: 'same-origin',
 	})
 
-	const json: CleanUserInt | null = await response.json()
+	const json: CleanUserInt | undefined = await response.json()
 
 	return json
 }
