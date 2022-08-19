@@ -33,7 +33,7 @@ const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
 							<NavBar.Text>Signed in as {user?.username}</NavBar.Text>
 							<Nav.Link href='#/'>View Blogs</Nav.Link>
 							<Nav.Link onClick={() => handleLogout()}>Log out</Nav.Link>
-							<Nav.Link href='#/new-blog'>Create blog</Nav.Link>
+							<Nav.Link href='#/create-blog'>Create blog</Nav.Link>
 						</Nav>
 					)}
 					{user?.role === 'User' && (
