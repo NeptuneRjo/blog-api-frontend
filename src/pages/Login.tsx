@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { CleanUserInt } from '../types'
-import { loginUser } from '../API/api-exports'
+import { loginUser, logoutUser } from '../API/api-exports'
 
 type Props = {
 	setUser: React.Dispatch<React.SetStateAction<CleanUserInt | undefined>>
+	user: CleanUserInt | undefined
 }
 
-const Login: React.FC<Props> = ({ setUser }: Props) => {
+const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [error, setError] = useState<any>()
@@ -26,28 +27,45 @@ const Login: React.FC<Props> = ({ setUser }: Props) => {
 		}
 	}
 
+	const handleLogout = async (): Promise<void> => {
+		const loggedOut = await logoutUser()
+
+		setUser(loggedOut)
+	}
+
 	return (
-		<Form onSubmit={(e) => handleFormSubmit(e)}>
-			<Form.Group className='mb-3' controlId='formBasicEmail'>
-				<Form.Label>Email address</Form.Label>
-				<Form.Control
-					value={email}
-					onChange={(e) => setEmail(e.target.value)}
-					type='email'
-					placeholder='Enter email'
-				/>
-			</Form.Group>
-			<Form.Group className='mb-3' controlId='formBasicPassword'>
-				<Form.Label>Password</Form.Label>
-				<Form.Control
-					value={password}
-					onChange={(e) => setPassword(e.target.value)}
-					type='password'
-					placeholder='Enter password'
-				/>
-			</Form.Group>
-			<Button type='submit'>Submit</Button>
-		</Form>
+		<div className='auth-page'>
+			{user === undefined && (
+				<Form onSubmit={(e) => handleFormSubmit(e)}>
+					<Form.Group className='mb-3' controlId='formBasicEmail'>
+						<Form.Label>Email address</Form.Label>
+						<Form.Control
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							type='email'
+							placeholder='Enter email'
+						/>
+					</Form.Group>
+					<Form.Group className='mb-3' controlId='formBasicPassword'>
+						<Form.Label>Password</Form.Label>
+						<Form.Control
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							type='password'
+							placeholder='Enter password'
+						/>
+					</Form.Group>
+					<Button type='submit'>Submit</Button>
+				</Form>
+			)}
+			{user !== undefined && (
+				<div className='action-text'>
+					<p>You are currently signed in as {user.username}</p>
+					<Button href='#/'>View blogs</Button>
+					<Button onClick={() => handleLogout()}>Log out</Button>
+				</div>
+			)}
+		</div>
 	)
 }
 
