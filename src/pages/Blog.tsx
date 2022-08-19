@@ -13,7 +13,7 @@ type Props = {
 const Blog: React.FC<Props> = ({ user }: Props) => {
 	const { id } = useParams()
 
-	const [blog, setBlog] = useState<BlogInt | undefined>(undefined)
+	const [blog, setBlog] = useState<BlogInt | null>(null)
 	const [comments, setComments] = useState<CommentInt[] | []>([])
 	const [error, setError] = useState<unknown | null>(null)
 
@@ -38,8 +38,8 @@ const Blog: React.FC<Props> = ({ user }: Props) => {
 			body,
 		}
 
-		// Because blog can be undefined, this check needs to be in place to prevent errors
-		if (blog !== undefined) {
+		// Because blog can be null, this check needs to be in place to prevent errors
+		if (blog !== null) {
 			try {
 				const updatedBlog: BlogInt = await updateBlogWithNewComment(
 					newComment,
@@ -57,7 +57,7 @@ const Blog: React.FC<Props> = ({ user }: Props) => {
 
 	return (
 		<div className='blog main'>
-			{blog !== undefined && (
+			{blog !== null && (
 				<>
 					<h3 className='title'>{blog?.title}</h3>
 					<div className='blog body'>
