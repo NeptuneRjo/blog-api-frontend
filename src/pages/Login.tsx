@@ -84,8 +84,10 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 			{user !== undefined && (
 				<div className='action-text'>
 					<p>You are currently signed in as {user.username}</p>
-					<Button href='#/'>View blogs</Button>
-					<Button onClick={() => handleLogout()}>Log out</Button>
+					<div className='action-buttons'>
+						<Button href='#/'>View blogs</Button>
+						<Button onClick={() => handleLogout()}>Log out</Button>
+					</div>
 				</div>
 			)}
 		</div>

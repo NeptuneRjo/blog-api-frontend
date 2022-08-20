@@ -43,7 +43,7 @@ const CreateBlog: React.FC<Props> = ({ user, setBlogs }: Props) => {
 	return (
 		<div className='auth-page'>
 			{user === undefined && (
-				<div className='unauthorized'>
+				<div className='action-text'>
 					<p>Sorry. You are unauthorized to access this content.</p>
 					<Button href='#/'>Go back</Button>
 				</div>

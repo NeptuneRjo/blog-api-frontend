@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Row, Col } from 'react-bootstrap'
 import { signupUser, logoutUser } from '../API/api-exports'
 import { CleanUserInt, ErrorInt } from '../types'
 
@@ -61,62 +61,72 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 					validated={validated}
 					noValidate
 				>
-					<Form.Group className='mb-3' controlId='formBasicEmail'>
-						<Form.Label>Email address</Form.Label>
-						<Form.Control
-							onChange={(e) => setEmail({ ...emails, email: e.target.value })}
-							type='email'
-							placeholder='Enter email'
-							value={emails.email}
-							required
-						/>
-						<Form.Label>Confirm email address</Form.Label>
-						<Form.Control
-							onChange={(e) =>
-								setEmail({ ...emails, emailCheck: e.target.value })
-							}
-							type='email'
-							placeholder='Confirm email'
-							value={emails.emailCheck}
-							required
-						/>
-						<Form.Control.Feedback type='invalid'>
-							{emails.email !== emails.emailCheck && <p>Emails do not match</p>}
-							{emails.email.length === 0 && <p>Please enter a valid email</p>}
-						</Form.Control.Feedback>
-					</Form.Group>
-					<Form.Group className='mb-3' controlId='formBasicPassword'>
-						<Form.Label>Password</Form.Label>
-						<Form.Control
-							onChange={(e) =>
-								setPassword({ ...passwords, password: e.target.value })
-							}
-							type='password'
-							placeholder='Enter password'
-							value={passwords.password}
-							required
-							minLength={6}
-						/>
-						<Form.Label>Confirm password</Form.Label>
-						<Form.Control
-							onChange={(e) =>
-								setPassword({ ...passwords, passwordCheck: e.target.value })
-							}
-							type='password'
-							placeholder='Confirm password'
-							value={passwords.passwordCheck}
-							required
-							minLength={6}
-						/>
-						<Form.Control.Feedback type='invalid'>
-							{passwords.password !== passwords.passwordCheck && (
-								<p>Passwords do not match</p>
-							)}
-							{passwords.password.length < 6 && (
-								<p>Passwords need to be atleast 6 characters long</p>
-							)}
-						</Form.Control.Feedback>
-					</Form.Group>
+					<Row>
+						<Form.Group className='mb-3' controlId='formBasicEmail' as={Col}>
+							<Form.Label>Email address</Form.Label>
+							<Form.Control
+								onChange={(e) => setEmail({ ...emails, email: e.target.value })}
+								type='email'
+								placeholder='Enter email'
+								value={emails.email}
+								required
+							/>
+							<Form.Control.Feedback type='invalid'>
+								{emails.email !== emails.emailCheck && (
+									<p>Emails do not match</p>
+								)}
+								{emails.email.length === 0 && <p>Please enter a valid email</p>}
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group className='mb-3' controlId='formBasicEmail' as={Col}>
+							<Form.Label>Confirm email address</Form.Label>
+							<Form.Control
+								onChange={(e) =>
+									setEmail({ ...emails, emailCheck: e.target.value })
+								}
+								type='email'
+								placeholder='Confirm email'
+								value={emails.emailCheck}
+								required
+							/>
+						</Form.Group>
+					</Row>
+					<Row>
+						<Form.Group className='mb-3' controlId='formBasicPassword' as={Col}>
+							<Form.Label>Password</Form.Label>
+							<Form.Control
+								onChange={(e) =>
+									setPassword({ ...passwords, password: e.target.value })
+								}
+								type='password'
+								placeholder='Enter password'
+								value={passwords.password}
+								required
+								minLength={6}
+							/>
+						</Form.Group>
+						<Form.Group className='mb-3' controlId='formBasicPassword' as={Col}>
+							<Form.Label>Confirm password</Form.Label>
+							<Form.Control
+								onChange={(e) =>
+									setPassword({ ...passwords, passwordCheck: e.target.value })
+								}
+								type='password'
+								placeholder='Confirm password'
+								value={passwords.passwordCheck}
+								required
+								minLength={6}
+							/>
+							<Form.Control.Feedback type='invalid'>
+								{passwords.password !== passwords.passwordCheck && (
+									<p>Passwords do not match</p>
+								)}
+								{passwords.password.length < 6 && (
+									<p>Passwords need to be atleast 6 characters long</p>
+								)}
+							</Form.Control.Feedback>
+						</Form.Group>
+					</Row>
 					<Form.Group className='mb-3' controlId='formBasicText'>
 						<Form.Label>Enter username</Form.Label>
 						<Form.Control

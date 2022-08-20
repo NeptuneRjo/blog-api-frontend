@@ -30,17 +30,17 @@ const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
 					)}
 					{user?.role === 'Admin' && (
 						<Nav className='me-auto'>
-							<NavBar.Text>Signed in as {user?.username}</NavBar.Text>
 							<Nav.Link href='#/'>View Blogs</Nav.Link>
 							<Nav.Link onClick={() => handleLogout()}>Log out</Nav.Link>
 							<Nav.Link href='#/create-blog'>Create blog</Nav.Link>
+							<NavBar.Text>Signed in as {user?.username}</NavBar.Text>
 						</Nav>
 					)}
 					{user?.role === 'User' && (
 						<Nav className='me-auto'>
-							<NavBar.Text>Signed in as {user?.username}</NavBar.Text>
 							<Nav.Link href='#/'>View Blogs</Nav.Link>
 							<Nav.Link onClick={() => handleLogout()}>Log out</Nav.Link>
+							<NavBar.Text>Signed in as {user?.username}</NavBar.Text>
 						</Nav>
 					)}
 				</NavBar.Collapse>
