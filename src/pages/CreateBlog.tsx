@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { CleanUserInt, BlogInt } from '../types'
+import { CleanUserInt, BlogInt, ErrorInt } from '../types'
 import { createBlog } from '../API/api-exports'
 
 type Props = {
@@ -12,55 +12,81 @@ const CreateBlog: React.FC<Props> = ({ user, setBlogs }: Props) => {
 	const [title, setTitle] = useState<string>('')
 	const [body, setBody] = useState<string>('')
 
+	const [validated, setValidated] = useState<boolean>(false)
+
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		const form = e.currentTarget
 
-		try {
-			if (user !== undefined) {
-				const newBlogList = await createBlog(title, body, user?.username)
+		if (form.checkValidity() === false) {
+			e.preventDefault()
+			e.stopPropagation()
+		} else {
+			e.preventDefault()
 
-				setBlogs(newBlogList)
+			try {
+				if (user !== undefined) {
+					const newBlogList = await createBlog(title, body, user?.username)
 
-				setTitle('')
-				setBody('')
+					setBlogs(newBlogList)
+
+					setTitle('')
+					setBody('')
+				}
+			} catch (error) {
+				console.log(error)
 			}
-		} catch (error) {
-			console.log(error)
 		}
+
+		setValidated(true)
 	}
 
 	return (
-		<Form onSubmit={(e) => handleFormSubmit(e)}>
+		<div className='auth-page'>
 			{user === undefined && (
 				<div className='unauthorized'>
 					<p>Sorry. You are unauthorized to access this content.</p>
 					<Button href='#/'>Go back</Button>
 				</div>
 			)}
-			{user !== undefined && user.role === 'Admin' && (
-				<>
-					<Form.Group className='mb-3'>
-						<Form.Label>Title</Form.Label>
-						<Form.Control
-							onChange={(e) => setTitle(e.target.value)}
-							value={title}
-							type='text'
-							placeholder='Enter title'
-						/>
-						<Form.Label>Content</Form.Label>
-						<Form.Control
-							onChange={(e) => setBody(e.target.value)}
-							value={body}
-							as='textarea'
-							placeholder='Enter blog content'
-						/>
-					</Form.Group>
-					<Button type='submit' href='#/'>
-						Create blog
-					</Button>
-				</>
-			)}
-		</Form>
+			<Form
+				onSubmit={(e) => handleFormSubmit(e)}
+				validated={validated}
+				noValidate
+			>
+				{user !== undefined && user.role === 'Admin' && (
+					<>
+						<Form.Group className='mb-3'>
+							<Form.Label>Title</Form.Label>
+							<Form.Control
+								onChange={(e) => setTitle(e.target.value)}
+								value={title}
+								type='text'
+								placeholder='Enter title'
+								required
+							/>
+
+							<Form.Control.Feedback type='invalid'>
+								{title.length === 0 && <p>Please enter a title</p>}
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Form.Group className='mb-3'>
+							<Form.Label>Content</Form.Label>
+							<Form.Control
+								onChange={(e) => setBody(e.target.value)}
+								value={body}
+								as='textarea'
+								placeholder='Enter blog content'
+								required
+							/>
+							<Form.Control.Feedback type='invalid'>
+								{body.length === 0 && <p>Please enter some content</p>}
+							</Form.Control.Feedback>
+						</Form.Group>
+						<Button type='submit'>Create blog</Button>
+					</>
+				)}
+			</Form>
+		</div>
 	)
 }
 
