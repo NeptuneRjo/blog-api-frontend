@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { CleanUserInt, ErrorInt } from '../types'
+import { CleanUserInt } from '../types'
 import { loginUser, logoutUser } from '../API/api-exports'
 
 type Props = {
@@ -11,13 +11,6 @@ type Props = {
 const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
-	const [errors, setErrors] = useState<ErrorInt>({
-		email: '',
-		password: '',
-		username: '',
-		other: '',
-	})
-
 	const [validated, setValidated] = useState<boolean>(false)
 
 	const emailValidationRegex =
@@ -33,12 +26,13 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 			e.preventDefault()
 			try {
 				const fetchedUser = await loginUser(email, password)
+
 				setUser(fetchedUser)
 
 				setEmail('')
 				setPassword('')
 			} catch (err) {
-				setErrors({ ...errors, other: 'Unable to log in user' })
+				console.log(err)
 			}
 		}
 
@@ -82,7 +76,6 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 								!email.toLowerCase().match(emailValidationRegex)) && (
 								<p>Please enter a valid email and/or password</p>
 							)}
-							{errors.other.length > 0 && <p>{errors.other}</p>}
 						</Form.Control.Feedback>
 					</Form.Group>
 					<Button type='submit'>Submit</Button>
