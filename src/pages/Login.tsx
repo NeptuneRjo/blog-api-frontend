@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { CleanUserInt } from '../types'
+import { CleanUserInt, ErrorInt } from '../types'
 import { loginUser, logoutUser } from '../API/api-exports'
 
 type Props = {
@@ -11,20 +11,40 @@ type Props = {
 const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
-	const [error, setError] = useState<any>()
+	const [errors, setErrors] = useState<ErrorInt>({
+		email: '',
+		password: '',
+		username: '',
+		other: '',
+	})
+
+	const [validated, setValidated] = useState<boolean>(false)
+
+	const emailValidationRegex =
+		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
+		// e.preventDefault()
+		const form = e.currentTarget
 
-		try {
-			const fetchedUser = await loginUser(email, password)
-			setUser(fetchedUser)
+		if (form.checkValidity() === false) {
+			e.preventDefault()
+			e.stopPropagation()
+		} else {
+			e.preventDefault()
+			try {
+				const fetchedUser = await loginUser(email, password)
+				setUser(fetchedUser)
 
-			setEmail('')
-			setPassword('')
-		} catch (err) {
-			setError(err)
+				setEmail('')
+				setPassword('')
+			} catch (err) {
+				// setError(err)
+				setErrors({ ...errors, other: 'Unable to log in user' })
+			}
 		}
+
+		setValidated(true)
 	}
 
 	const handleLogout = async (): Promise<void> => {
@@ -33,10 +53,22 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 		setUser(loggedOut)
 	}
 
+	const validateEmail = () => {
+		return email
+			.toLowerCase()
+			.match(
+				/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+			)
+	}
+
 	return (
 		<div className='auth-page'>
 			{user === undefined && (
-				<Form onSubmit={(e) => handleFormSubmit(e)}>
+				<Form
+					onSubmit={(e) => handleFormSubmit(e)}
+					validated={validated}
+					noValidate
+				>
 					<Form.Group className='mb-3' controlId='formBasicEmail'>
 						<Form.Label>Email address</Form.Label>
 						<Form.Control
@@ -44,16 +76,24 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 							onChange={(e) => setEmail(e.target.value)}
 							type='email'
 							placeholder='Enter email'
+							required
 						/>
-					</Form.Group>
-					<Form.Group className='mb-3' controlId='formBasicPassword'>
 						<Form.Label>Password</Form.Label>
 						<Form.Control
 							value={password}
 							onChange={(e) => setPassword(e.target.value)}
 							type='password'
 							placeholder='Enter password'
+							required
+							minLength={6}
 						/>
+						<Form.Control.Feedback type='invalid'>
+							{(password.length < 6 ||
+								!email.toLowerCase().match(emailValidationRegex)) && (
+								<p>Please enter a valid email and/or password</p>
+							)}
+							{errors.other.length > 0 && <p>{errors.other}</p>}
+						</Form.Control.Feedback>
 					</Form.Group>
 					<Button type='submit'>Submit</Button>
 				</Form>
