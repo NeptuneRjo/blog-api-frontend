@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Nav, Navbar as NavBar } from 'react-bootstrap'
 import { CleanUserInt } from '../types'
 import { logoutUser } from '../API/api-exports'
@@ -13,6 +13,7 @@ const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
 		const loggedOut = await logoutUser()
 
 		setUser(loggedOut)
+		window.sessionStorage.setItem('user', JSON.stringify(loggedOut))
 	}
 
 	return (
