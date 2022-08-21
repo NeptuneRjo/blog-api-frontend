@@ -39,6 +39,8 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 				setEmail({ email: '', emailCheck: '' })
 				setPassword({ password: '', passwordCheck: '' })
 				setUsername('')
+
+				window.sessionStorage.setItem('user', JSON.stringify(signedUpUser))
 			} catch (err) {
 				setErrors({ ...errors, other: 'Unable to sign up user' })
 			}

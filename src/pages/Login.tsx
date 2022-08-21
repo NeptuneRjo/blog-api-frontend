@@ -31,6 +31,8 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 
 				setEmail('')
 				setPassword('')
+
+				window.sessionStorage.setItem('user', JSON.stringify(fetchedUser))
 			} catch (err) {
 				console.log(err)
 			}
@@ -43,6 +45,7 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 		const loggedOut = await logoutUser()
 
 		setUser(loggedOut)
+		window.sessionStorage.setItem('user', JSON.stringify(undefined))
 	}
 
 	return (

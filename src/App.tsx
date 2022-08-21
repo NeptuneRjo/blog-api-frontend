@@ -31,15 +31,10 @@ const App: React.FC = () => {
 				setBlogError(err)
 			}
 		})()
-		if (user === null) {
-			;(async function setStateToReturnUser() {
-				try {
-					const fetchedUser = await fetchUser()
-					setUser(fetchedUser)
-				} catch (err) {
-					setUserError(err)
-				}
-			})()
+		const sessionUser = sessionStorage.getItem('user')
+
+		if (sessionUser !== 'undefined') {
+			setUser(JSON.parse(`${sessionUser}`))
 		}
 	}, [])
 
