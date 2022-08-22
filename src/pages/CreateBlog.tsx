@@ -5,38 +5,39 @@ import { createBlog } from '../API/api-exports'
 
 type Props = {
 	user: CleanUserInt | undefined
+	blogs: [] | BlogInt[]
 	setBlogs: React.Dispatch<React.SetStateAction<[] | BlogInt[]>>
 }
 
-const CreateBlog: React.FC<Props> = ({ user, setBlogs }: Props) => {
+const CreateBlog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
 	const [title, setTitle] = useState<string>('')
 	const [body, setBody] = useState<string>('')
 
 	const [created, setCreated] = useState<boolean>(false)
+	const [error, setError] = useState()
 
 	const [validated, setValidated] = useState<boolean>(false)
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		const form = e.currentTarget
+		e.preventDefault()
 
 		if (form.checkValidity() === false) {
-			e.preventDefault()
 			e.stopPropagation()
 		} else {
-			e.preventDefault()
+			if (user) {
+				const response = await createBlog(title, body, user?.username)
+				const json = await response.json()
 
-			try {
-				if (user !== undefined) {
-					const newBlogList = await createBlog(title, body, user?.username)
-
-					setBlogs(newBlogList)
+				if (!response.ok) {
+					setError(json?.error)
+				} else if (response.ok) {
+					setBlogs([...blogs, json?.data])
 
 					setCreated(true)
 					setTitle('')
 					setBody('')
 				}
-			} catch (error) {
-				console.log(error)
 			}
 		}
 

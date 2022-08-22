@@ -9,11 +9,17 @@ type Props = {
 }
 
 const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
-	const handleLogout = async (): Promise<void> => {
-		const loggedOut = await logoutUser()
+	const [error, setError] = useState()
 
-		setUser(loggedOut)
-		window.sessionStorage.setItem('user', JSON.stringify(loggedOut))
+	const handleLogout = async (): Promise<void> => {
+		const response = await logoutUser()
+		const json = await response.json()
+
+		if (!response.ok) {
+			setError(json?.error)
+		} else if (response.ok) {
+			setUser(json?.data?.user)
+		}
 	}
 
 	return (

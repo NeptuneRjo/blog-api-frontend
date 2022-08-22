@@ -12,29 +12,25 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 	const [email, setEmail] = useState<string>('')
 	const [password, setPassword] = useState<string>('')
 	const [validated, setValidated] = useState<boolean>(false)
+	const [error, setError] = useState('')
 
 	const emailValidationRegex =
 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		const form = e.currentTarget
+		e.preventDefault()
 
 		if (form.checkValidity() === false) {
-			e.preventDefault()
 			e.stopPropagation()
 		} else {
-			e.preventDefault()
-			try {
-				const fetchedUser = await loginUser(email, password)
+			const response = await loginUser(email, password)
+			const json = await response.json()
 
-				setUser(fetchedUser)
-
-				setEmail('')
-				setPassword('')
-
-				window.sessionStorage.setItem('user', JSON.stringify(fetchedUser))
-			} catch (err) {
-				console.log(err)
+			if (!response.ok) {
+				setError('Unable to log in user')
+			} else {
+				setUser(json?.data?.user)
 			}
 		}
 
@@ -42,10 +38,15 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 	}
 
 	const handleLogout = async (): Promise<void> => {
-		const loggedOut = await logoutUser()
+		const response = await logoutUser()
+		const json = await response.json()
 
-		setUser(loggedOut)
-		window.sessionStorage.setItem('user', JSON.stringify(undefined))
+		if (!response.ok) {
+			setError(json?.error)
+		} else if (response.ok) {
+			setUser(json?.data?.user)
+			sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+		}
 	}
 
 	return (

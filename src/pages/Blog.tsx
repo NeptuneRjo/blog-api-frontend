@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import {
-	fetchBlog,
-	updateBlogWithNewComment,
-	deleteBlog,
-} from '../API/api-exports'
+import { fetchBlog, updateBlog, deleteBlog } from '../API/api-exports'
 import { CommentInt, BlogInt, CleanUserInt } from '../types'
 import { Comment, CommentForm } from '../components/components-exports'
 import { Button } from 'react-bootstrap'
@@ -13,26 +9,28 @@ import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
 
 type Props = {
 	user: CleanUserInt | undefined
+	blogs: [] | BlogInt[]
 	setBlogs: React.Dispatch<React.SetStateAction<[] | BlogInt[]>>
 }
 
-const Blog: React.FC<Props> = ({ user, setBlogs }: Props) => {
+const Blog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
 	const { id } = useParams()
 
-	const [blog, setBlog] = useState<BlogInt | null>(null)
+	const [blog, setBlog] = useState<BlogInt>()
 	const [comments, setComments] = useState<CommentInt[] | []>([])
-	const [error, setError] = useState<unknown | null>(null)
+	const [error, setError] = useState<any>()
 
 	const [deleting, setDeleting] = useState<boolean>(false)
 
 	useEffect(() => {
-		;(async function setStateToReturnedBlog() {
-			try {
-				const fetchedBlog: BlogInt = await fetchBlog(id)
-				setBlog(fetchedBlog)
-				setComments(fetchedBlog.comments)
-			} catch (err) {
-				setError(err)
+		;(async function getBlog() {
+			const response = await fetchBlog(id)
+			const json = await response.json()
+
+			if (!response.ok) {
+				setError(json?.error)
+			} else if (response.ok) {
+				setBlog(json?.data)
 			}
 		})()
 	}, [])
@@ -46,36 +44,39 @@ const Blog: React.FC<Props> = ({ user, setBlogs }: Props) => {
 			body,
 		}
 
-		// Because blog can be null, this check needs to be in place to prevent errors
-		if (blog !== null) {
-			try {
-				const updatedBlog: BlogInt = await updateBlogWithNewComment(
-					newComment,
-					blog,
-					id
-				)
+		// Blog *should not* be undefined if on this page, but because blog can be undefined,
+		// logic must be wrapped in if statement
+		if (blog !== undefined) {
+			const response = await updateBlog(newComment, blog, id)
+			const json = await response.json()
 
-				setBlog(updatedBlog)
-				setComments(updatedBlog.comments)
-			} catch (err) {
-				setError(err)
+			if (!response.ok) {
+				setError(json?.error)
+			} else if (response.ok) {
+				setBlog(json?.data)
 			}
 		}
 	}
 
 	const handleBlogDelete = async () => {
-		try {
-			const newBlogList = await deleteBlog(id as string)
-			setBlogs(newBlogList)
-			setDeleting(false)
-		} catch (err) {
-			console.log(err)
+		const response = await deleteBlog(id as string)
+		const json = await response.json()
+
+		if (!response.ok) {
+			setError(json?.error)
+		} else if (response.ok) {
+			const deletedBlogId = json?.data?._id
+			const cleanedBlogArray = blogs.filter((blog) => {
+				return blog?._id !== deletedBlogId
+			})
+
+			setBlogs(cleanedBlogArray)
 		}
 	}
 
 	return (
 		<div className='blog main'>
-			{blog !== null && (
+			{blog !== undefined && (
 				<>
 					<h3 className='title'>{blog?.title}</h3>
 					<div className='blog body'>

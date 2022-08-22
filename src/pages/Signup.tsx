@@ -25,24 +25,18 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 		const { email } = emails
 		const { password } = passwords
 		const form = e.currentTarget
+		e.preventDefault()
 
 		if (form.checkValidity() === false) {
-			e.preventDefault()
 			e.stopPropagation()
 		} else {
-			e.preventDefault()
+			const response = await signupUser(email, password, username)
+			const json = await response.json()
 
-			try {
-				const signedUpUser = await signupUser(email, password, username)
-				setUser(signedUpUser)
-
-				setEmail({ email: '', emailCheck: '' })
-				setPassword({ password: '', passwordCheck: '' })
-				setUsername('')
-
-				window.sessionStorage.setItem('user', JSON.stringify(signedUpUser))
-			} catch (err) {
-				setErrors({ ...errors, other: 'Unable to sign up user' })
+			if (!response.ok) {
+				setErrors({ ...errors, other: json?.error })
+			} else if (response.ok) {
+				setUser(json?.data?.user)
 			}
 		}
 
@@ -50,9 +44,14 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 	}
 
 	const handleLogout = async (): Promise<void> => {
-		const loggedOut = await logoutUser()
+		const response = await logoutUser()
+		const json = await response.json()
 
-		setUser(loggedOut)
+		if (!response.ok) {
+			setErrors({ ...errors, other: json?.error })
+		} else if (response.ok) {
+			setUser(json?.data?.user)
+		}
 	}
 
 	return (
