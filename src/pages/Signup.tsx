@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { signupUser, logoutUser } from '../API/api-exports'
-import { CleanUserInt, ErrorInt } from '../types'
+import { CleanUserInt } from '../types'
 
 type Props = {
 	setUser: React.Dispatch<React.SetStateAction<CleanUserInt | undefined>>
@@ -13,12 +13,7 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 	const [passwords, setPassword] = useState({ password: '', passwordCheck: '' })
 	const [username, setUsername] = useState<string>('')
 
-	const [errors, setErrors] = useState<ErrorInt>({
-		email: '',
-		password: '',
-		username: '',
-		other: '',
-	})
+	const [error, setError] = useState<string | null>(null)
 	const [validated, setValidated] = useState<boolean>(false)
 
 	const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,7 +29,7 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 			const json = await response.json()
 
 			if (!response.ok) {
-				setErrors({ ...errors, other: json?.error })
+				setError(json?.error)
 			} else if (response.ok) {
 				setUser(json?.data?.user)
 			}
@@ -48,10 +43,24 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 		const json = await response.json()
 
 		if (!response.ok) {
-			setErrors({ ...errors, other: json?.error })
+			setError(json?.error)
 		} else if (response.ok) {
 			setUser(json?.data?.user)
 		}
+	}
+
+	if (error) {
+		return (
+			<div className='auth-page'>
+				<div className='action-text'>
+					<p>{error}</p>
+					<div className='action-buttons'>
+						<Button href='#/signup'>Go back</Button>
+						<Button href='#/'>View blogs</Button>
+					</div>
+				</div>
+			</div>
+		)
 	}
 
 	return (
