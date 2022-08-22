@@ -2,22 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchBlog, updateBlog, deleteBlog } from '../API/api-exports'
 import { CommentInt, BlogInt, CleanUserInt } from '../types'
-import {
-	Comment,
-	CommentForm,
-	DeleteBlog,
-} from '../components/components-exports'
+import { Comment, CommentForm } from '../components/components-exports'
 import { Button } from 'react-bootstrap'
 
 import formatDistanceToNow from 'date-fns/esm/formatDistanceToNow/index.js'
 
 type Props = {
 	user: CleanUserInt | undefined
-	blogs: [] | BlogInt[]
-	setBlogs: React.Dispatch<React.SetStateAction<[] | BlogInt[]>>
 }
 
-const Blog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
+const Blog: React.FC<Props> = ({ user }: Props) => {
 	const { id } = useParams()
 
 	const [blog, setBlog] = useState<BlogInt>()
