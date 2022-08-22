@@ -1,5 +1,5 @@
 export { default as fetchBlog } from './Blogs/fetchBlog'
-export { default as updateBlogWithNewComment } from './Blogs/updateBlog'
+export { default as updateBlog } from './Blogs/updateBlog'
 export { default as fetchAllBlogs } from './Blogs/fetchAllBlogs'
 export { default as deleteBlog } from './Blogs/deleteBlog'
 export { default as createBlog } from './Blogs/createBlog'
