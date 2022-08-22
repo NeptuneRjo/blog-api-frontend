@@ -19,23 +19,31 @@ const App: React.FC = () => {
 	const [blogs, setBlogs] = useState<BlogInt[] | []>([])
 	const [user, setUser] = useState<CleanUserInt | undefined>(undefined)
 
-	const [blogError, setBlogError] = useState<unknown | null>(null)
+	const [error, setError] = useState<null | string>(null)
 	const [userError, setUserError] = useState<unknown | null>(null)
 
 	useEffect(() => {
-		;(async function setStateToReturnedBlogs() {
-			try {
-				const fetchedBlogs = await fetchAllBlogs()
-				setBlogs(fetchedBlogs)
-			} catch (err) {
-				setBlogError(err)
+		;(async function getBlogs() {
+			const response = await fetchAllBlogs()
+			const json = await response.json()
+
+			if (!response.ok) {
+				setError(json?.error)
+			} else if (response.ok) {
+				setBlogs(json?.data)
 			}
 		})()
-		const sessionUser = sessionStorage.getItem('user')
+		;(async function getUser() {
+			const response = await fetchUser()
+			const json = await response.json()
 
-		if (sessionUser !== 'undefined') {
-			setUser(JSON.parse(`${sessionUser}`))
-		}
+			if (!response.ok) {
+				setError(json?.error)
+			} else {
+				setUser(json?.data?.user)
+				sessionStorage.setItem('user', JSON.stringify(user))
+			}
+		})()
 	}, [])
 
 	return (
@@ -45,11 +53,13 @@ const App: React.FC = () => {
 				<Routes>
 					<Route
 						path='/blog/:id'
-						element={<Blog user={user} setBlogs={setBlogs} />}
+						element={<Blog user={user} blogs={blogs} setBlogs={setBlogs} />}
 					/>
 					<Route
 						path='/create-blog'
-						element={<CreateBlog user={user} setBlogs={setBlogs} />}
+						element={
+							<CreateBlog user={user} blogs={blogs} setBlogs={setBlogs} />
+						}
 					/>
 					<Route
 						path='/login'
