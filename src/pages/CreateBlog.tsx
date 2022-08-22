@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
-import { CleanUserInt, BlogInt, ErrorInt } from '../types'
+import { CleanUserInt, BlogInt } from '../types'
 import { createBlog } from '../API/api-exports'
 
 type Props = {
@@ -14,7 +14,7 @@ const CreateBlog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
 	const [body, setBody] = useState<string>('')
 
 	const [created, setCreated] = useState<boolean>(false)
-	const [error, setError] = useState()
+	const [error, setError] = useState<string | null>(null)
 
 	const [validated, setValidated] = useState<boolean>(false)
 
@@ -49,6 +49,19 @@ const CreateBlog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
 			<div className='auth-page'>
 				<div className='action-text'>
 					<p>Blog successfully created!</p>
+					<div className='action-buttons'>
+						<Button href='#/'>View blogs</Button>
+					</div>
+				</div>
+			</div>
+		)
+	}
+
+	if (error) {
+		return (
+			<div className='auth-page'>
+				<div className='action-text'>
+					<p>{error}</p>
 					<div className='action-buttons'>
 						<Button href='#/'>View blogs</Button>
 					</div>
