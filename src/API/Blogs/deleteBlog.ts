@@ -1,6 +1,4 @@
-import { BlogInt } from '../../types'
-
-const deleteBlog = async (id: string) => {
+const deleteBlog = async (id: string): Promise<Response> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
 	const response: Response = await fetch(`/api/blogs/${id}`, {
@@ -11,9 +9,7 @@ const deleteBlog = async (id: string) => {
 		credentials: 'same-origin',
 	})
 
-	const json: BlogInt[] = await response.json()
-
-	return json
+	return response
 }
 
 export default deleteBlog

@@ -1,10 +1,8 @@
-import { BlogInt } from '../../types'
-
 const createBlog = async (
 	title: string,
 	body: string,
 	author: string
-): Promise<BlogInt[] | []> => {
+): Promise<Response> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
 	const response: Response = await fetch(`/api/blogs`, {
@@ -20,9 +18,7 @@ const createBlog = async (
 		credentials: 'same-origin',
 	})
 
-	const json: BlogInt[] | [] = await response.json()
-
-	return json
+	return response
 }
 
 export default createBlog

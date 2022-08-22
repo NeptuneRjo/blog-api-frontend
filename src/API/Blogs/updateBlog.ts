@@ -4,7 +4,7 @@ const updateBlogWithNewComment = async (
 	newComment: CommentInt,
 	blog: BlogInt,
 	id: string | undefined
-): Promise<BlogInt> => {
+): Promise<Response> => {
 	const newCommentsArray: CommentInt[] = [newComment, ...blog.comments]
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
@@ -18,9 +18,8 @@ const updateBlogWithNewComment = async (
 		},
 		credentials: 'same-origin',
 	})
-	const json: BlogInt = await response.json()
 
-	return json
+	return response
 }
 
 export default updateBlogWithNewComment
