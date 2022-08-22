@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Navbar } from './components/components-exports'
+import { DeleteBlog, Navbar } from './components/components-exports'
 import {
 	Dashboard,
 	Blog,
@@ -20,7 +20,6 @@ const App: React.FC = () => {
 	const [user, setUser] = useState<CleanUserInt | undefined>(undefined)
 
 	const [error, setError] = useState<null | string>(null)
-	const [userError, setUserError] = useState<unknown | null>(null)
 
 	useEffect(() => {
 		;(async function getBlogs() {
@@ -51,10 +50,7 @@ const App: React.FC = () => {
 			<div className='app-main'>
 				<Navbar user={user} setUser={setUser} />
 				<Routes>
-					<Route
-						path='/blog/:id'
-						element={<Blog user={user} blogs={blogs} setBlogs={setBlogs} />}
-					/>
+					<Route path='/blog/:id' element={<Blog user={user} />} />
 					<Route
 						path='/create-blog'
 						element={
@@ -68,6 +64,16 @@ const App: React.FC = () => {
 					<Route
 						path='/signup'
 						element={<Signup user={user} setUser={setUser} />}
+					/>
+					<Route
+						path='/delete-blog/:id'
+						element={
+							<DeleteBlog
+								setError={setError}
+								setBlogs={setBlogs}
+								blogs={blogs}
+							/>
+						}
 					/>
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
 				</Routes>
