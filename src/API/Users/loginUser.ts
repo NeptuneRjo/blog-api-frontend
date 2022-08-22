@@ -1,9 +1,7 @@
-import { CleanUserInt } from '../../types'
-
 const loginUser = async (
 	email: string,
 	password: string
-): Promise<CleanUserInt | undefined> => {
+): Promise<Response> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
 	const response: Response = await fetch(`/api/users/login`, {
@@ -18,9 +16,7 @@ const loginUser = async (
 		credentials: 'same-origin',
 	})
 
-	const json: CleanUserInt = await response.json()
-
-	return json
+	return response
 }
 
 export default loginUser

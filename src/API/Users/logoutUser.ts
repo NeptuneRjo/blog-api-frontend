@@ -1,4 +1,4 @@
-const logoutUser = async (): Promise<undefined> => {
+const logoutUser = async (): Promise<Response> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
 	const response: Response = await fetch(`/api/users/logout`, {
@@ -9,14 +9,7 @@ const logoutUser = async (): Promise<undefined> => {
 		credentials: 'same-origin',
 	})
 
-	const json = await response.json()
-
-	// The logout call returns null instead of undefined
-	if (json === null) {
-		return undefined
-	}
-
-	return json
+	return response
 }
 
 export default logoutUser

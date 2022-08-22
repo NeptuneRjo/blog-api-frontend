@@ -1,10 +1,8 @@
-import { CleanUserInt } from '../../types'
-
 const signupUser = async (
 	email: string,
 	password: string,
 	username: string
-): Promise<CleanUserInt | undefined> => {
+): Promise<Response> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
 	const response: Response = await fetch(`/api/users/signup`, {
@@ -20,9 +18,7 @@ const signupUser = async (
 		credentials: 'same-origin',
 	})
 
-	const json: CleanUserInt | undefined = await response.json()
-
-	return json
+	return response
 }
 
 export default signupUser

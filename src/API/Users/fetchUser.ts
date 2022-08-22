@@ -1,7 +1,4 @@
-import { CleanUserInt } from '../../types'
-
-// CleanUserInt is the User model without sensitive information
-const fetchUser = async (): Promise<CleanUserInt | undefined> => {
+const fetchUser = async (): Promise<Response> => {
 	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
 	const response: Response = await fetch(`/api/users`, {
@@ -10,9 +7,8 @@ const fetchUser = async (): Promise<CleanUserInt | undefined> => {
 		},
 		credentials: 'same-origin',
 	})
-	const json: CleanUserInt | undefined = await response.json()
 
-	return json
+	return response
 }
 
 export default fetchUser
