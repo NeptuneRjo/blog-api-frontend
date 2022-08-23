@@ -3,20 +3,21 @@ const createBlog = async (
 	body: string,
 	author: string
 ): Promise<Response> => {
-	const url = 'https://whispering-tundra-62913.herokuapp.com'
-
-	const response: Response = await fetch(`/api/blogs`, {
-		method: 'POST',
-		body: JSON.stringify({
-			title,
-			body,
-			author,
-		}),
-		headers: {
-			'Content-type': 'application/json; charset=UTF-8',
-		},
-		credentials: 'same-origin',
-	})
+	const response: Response = await fetch(
+		`${process.env.REACT_APP_API_URL}/api/blogs`,
+		{
+			method: 'POST',
+			body: JSON.stringify({
+				title,
+				body,
+				author,
+			}),
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'same-origin',
+		}
+	)
 
 	return response
 }

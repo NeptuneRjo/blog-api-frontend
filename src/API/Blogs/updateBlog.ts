@@ -6,18 +6,20 @@ const updateBlogWithNewComment = async (
 	id: string | undefined
 ): Promise<Response> => {
 	const newCommentsArray: CommentInt[] = [newComment, ...blog.comments]
-	const url = 'https://whispering-tundra-62913.herokuapp.com'
 
-	const response: Response = await fetch(`/api/blogs/${id}`, {
-		method: 'PATCH',
-		body: JSON.stringify({
-			comments: newCommentsArray,
-		}),
-		headers: {
-			'Content-type': 'application/json; charset=UTF-8',
-		},
-		credentials: 'same-origin',
-	})
+	const response: Response = await fetch(
+		`${process.env.REACT_APP_API_URL}/api/blogs/${id}`,
+		{
+			method: 'PATCH',
+			body: JSON.stringify({
+				comments: newCommentsArray,
+			}),
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'same-origin',
+		}
+	)
 
 	return response
 }
