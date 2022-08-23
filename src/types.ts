@@ -28,10 +28,3 @@ export interface CleanUserInt {
 	_id: string
 	role: string
 }
-
-export interface ErrorInt {
-	email: string
-	password: string
-	username: string
-	other: string
-}
