@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Button, Row, Col, Alert } from 'react-bootstrap'
 import { signupUser, logoutUser } from '../API/api-exports'
 import { CleanUserInt } from '../types'
 
@@ -47,20 +47,6 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 		} else if (response.ok) {
 			setUser(json?.data?.user)
 		}
-	}
-
-	if (error) {
-		return (
-			<div className='auth-page'>
-				<div className='action-text'>
-					<p>{error}</p>
-					<div className='action-buttons'>
-						<Button href='#/signup'>Go back</Button>
-						<Button href='#/'>View blogs</Button>
-					</div>
-				</div>
-			</div>
-		)
 	}
 
 	return (
@@ -152,7 +138,18 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 							)}
 						</Form.Control.Feedback>
 					</Form.Group>
-					<Button type='submit'>Submit</Button>
+					<div>
+						{error === null && <Button type='submit'>Submit</Button>}
+						{error && (
+							<Alert
+								variant='danger'
+								onClose={() => setError(null)}
+								dismissible
+							>
+								{error}
+							</Alert>
+						)}
+					</div>
 				</Form>
 			)}
 			{user !== undefined && (
