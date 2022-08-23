@@ -15,6 +15,15 @@
     padding: .5rem 0;
 }
 
+.blog-body {
+    max-width: 720px;
+    width: 100%;
+}
+
+.blog-text {
+    font-size: 1.05em;
+}
+
 .blog-delete {
     width: 100%;
     display: flex;
@@ -24,8 +33,16 @@
 .blog-comments {
     display: flex;
     flex-direction: column;
+    max-width: 720px;
+    width: 100%;
 }
 
 .blog-comments-new {
     margin-bottom: 5rem;
+}
+
+@media screen and (min-width: 1025px) {
+    .blog-text {
+        font-size: 1.1em;
+    }
 }
