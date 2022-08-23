@@ -49,62 +49,60 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 		}
 	}
 
+	if (user !== undefined) {
+		return (
+			<div className='action-text'>
+				<p>You are currently signed in as {user.username}</p>
+				<div className='action-buttons'>
+					<Button href='#/'>View blogs</Button>
+					<Button onClick={() => handleLogout()}>Log out</Button>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div className='auth-page'>
-			{user === undefined && (
-				<Form
-					onSubmit={(e) => handleFormSubmit(e)}
-					validated={validated}
-					noValidate
-				>
-					<Form.Group className='mb-3' controlId='formBasicEmail'>
-						<Form.Label>Email address</Form.Label>
-						<Form.Control
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							type='email'
-							placeholder='Enter email'
-							required
-						/>
-						<Form.Label>Password</Form.Label>
-						<Form.Control
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							type='password'
-							placeholder='Enter password'
-							required
-							minLength={6}
-						/>
-						<Form.Control.Feedback type='invalid'>
-							{(password.length < 6 ||
-								!email.toLowerCase().match(emailValidationRegex)) && (
-								<p>Please enter a valid email and/or password</p>
-							)}
-						</Form.Control.Feedback>
-					</Form.Group>
-					<div>
-						{error === null && <Button type='submit'>Submit</Button>}
-						{error && (
-							<Alert
-								variant='danger'
-								onClose={() => setError(null)}
-								dismissible
-							>
-								{error}
-							</Alert>
+			<h3 className='title'>Login</h3>
+			<Form
+				onSubmit={(e) => handleFormSubmit(e)}
+				validated={validated}
+				noValidate
+			>
+				<Form.Group className='mb-3' controlId='formBasicEmail'>
+					<Form.Label>Email address</Form.Label>
+					<Form.Control
+						value={email}
+						onChange={(e) => setEmail(e.target.value)}
+						type='email'
+						placeholder='Enter email'
+						required
+					/>
+					<Form.Label>Password</Form.Label>
+					<Form.Control
+						value={password}
+						onChange={(e) => setPassword(e.target.value)}
+						type='password'
+						placeholder='Enter password'
+						required
+						minLength={6}
+					/>
+					<Form.Control.Feedback type='invalid'>
+						{(password.length < 6 ||
+							!email.toLowerCase().match(emailValidationRegex)) && (
+							<p>Please enter a valid email and/or password</p>
 						)}
-					</div>
-				</Form>
-			)}
-			{user !== undefined && (
-				<div className='action-text'>
-					<p>You are currently signed in as {user.username}</p>
-					<div className='action-buttons'>
-						<Button href='#/'>View blogs</Button>
-						<Button onClick={() => handleLogout()}>Log out</Button>
-					</div>
+					</Form.Control.Feedback>
+				</Form.Group>
+				<div>
+					{error === null && <Button type='submit'>Submit</Button>}
+					{error && (
+						<Alert variant='danger' onClose={() => setError(null)} dismissible>
+							{error}
+						</Alert>
+					)}
 				</div>
-			)}
+			</Form>
 		</div>
 	)
 }
