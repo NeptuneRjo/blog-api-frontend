@@ -1,0 +1,5 @@
+.dashboard-grid {
+    display: grid;
+    padding: 1rem 3rem;
+    gap: 2rem;
+}
