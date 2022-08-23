@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
 import { CleanUserInt, BlogInt } from '../types'
 import { createBlog } from '../API/api-exports'
 
@@ -113,7 +113,18 @@ const CreateBlog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
 							{body.length === 0 && <p>Please enter some content</p>}
 						</Form.Control.Feedback>
 					</Form.Group>
-					<Button type='submit'>Create blog</Button>
+					<div>
+						{error === null && <Button type='submit'>Create blog</Button>}
+						{error && (
+							<Alert
+								variant='danger'
+								onClose={() => setError(null)}
+								dismissible
+							>
+								Error: {error}
+							</Alert>
+						)}
+					</div>
 				</Form>
 			)}
 		</div>
