@@ -2,6 +2,13 @@
     display: grid;
     padding: 1rem 3rem;
     gap: 2rem;
+    width: 100%;
+}
+
+.dashboard-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 @media screen and (min-width: 769px) {
