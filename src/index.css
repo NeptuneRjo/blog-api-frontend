@@ -1,26 +1,9 @@
-.main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
-    min-height: 100vh;
-}
 
-.grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    max-width: 75vw;
-    width: 100%;
-}
 
 .title {
     margin: 3rem;
     text-align: center;
-}
-
-.grid-item {
-    margin: .75rem 0;
 }
 
 .author {
@@ -28,45 +11,6 @@
     flex-direction: column;
 }
 
-.body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.text {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5rem;
-    margin-bottom: 15rem;
-    max-width: 75vw;
-    padding: 1rem;
-    text-align: center;
-    font-size: 1.2em;
-}
-
-.comment {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 75vw;
-}
-
-.comments-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    margin: 10rem 0;
-}
-
-.comments-none {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 10rem 0;
-}
 
 .comment-main {
     display: flex;
@@ -75,7 +19,7 @@
     max-width: 75vw;
     padding: 0 5px;
     border-radius: 2px;
-    border-left: solid 2px rgba(122, 138, 184, 0.5);
+    border-left: solid 3px rgba(122, 138, 184, 0.5);
 }
 
 .comment-body {
@@ -101,57 +45,26 @@
 }
 
 .auth-page {
-    padding: 5rem .25rem;
+    padding: 5rem 1.5rem;
 }
 
 .action-text {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-}
-
-.action-text p {
-    grid-column: span 2;
+    display: flex;
+    flex-direction: column;
     text-align: center;
+    justify-content: center;
+    min-height: 90vh;
 }
 
 .action-buttons {
-    grid-column: span 2;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
 }
 
-
-@media screen and (min-width: 850px) {
-    .comment-main {
-        max-width: 50vw;
-    }
-
-    .grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2rem;
-    }
-
-    .comments {
-        max-width: 50vw;
-        width: 100%;
-    }
-
-    .auth-page {
-        padding: 5rem 10rem;
-    }
-}
-
 @media screen and (min-width: 990px) {
     .hero-main {
         padding: 6rem;
-    }
-}
-
-@media screen and (min-width: 1200px) {
-    .grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 2rem;
     }
 }
