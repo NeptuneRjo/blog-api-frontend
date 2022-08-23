@@ -67,12 +67,20 @@ const Blog: React.FC<Props> = ({ user }: Props) => {
 			<div>
 				<h4>404</h4>
 				<p>Page not found...</p>
+				<p>Error message: {error}</p>
 			</div>
 		)
 	}
 
 	return (
 		<div className='blog main'>
+			{user !== undefined && user.role === 'Admin' && (
+				<div className='blog delete-field'>
+					{deleting === false && (
+						<Button href={`#/delete-blog/${id}`}>Delete Blog</Button>
+					)}
+				</div>
+			)}
 			<h3 className='title'>{blog?.title}</h3>
 			<div className='blog body'>
 				<h6 className='blog author'>
@@ -98,13 +106,6 @@ const Blog: React.FC<Props> = ({ user }: Props) => {
 					<div className='blog comments-none'>No comments yet...</div>
 				)}
 			</div>
-			{user !== undefined && user.role === 'Admin' && (
-				<div className='blog delete-field'>
-					{deleting === false && (
-						<Button href={`#/delete-blog/${id}`}>Delete Blog</Button>
-					)}
-				</div>
-			)}
 		</div>
 	)
 }
