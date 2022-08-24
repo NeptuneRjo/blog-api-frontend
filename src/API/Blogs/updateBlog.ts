@@ -8,7 +8,7 @@ const updateBlogWithNewComment = async (
 	const newCommentsArray: CommentInt[] = [newComment, ...blog.comments]
 
 	const response: Response = await fetch(
-		`${process.env.REACT_APP_API_URL}/api/blogs/${id}`,
+		`http://localhost:4000/api/blogs/${id}`,
 		{
 			method: 'PATCH',
 			body: JSON.stringify({

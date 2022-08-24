@@ -1,10 +1,7 @@
 const fetchAllBlogs = async (): Promise<Response> => {
-	const response: Response = await fetch(
-		`${process.env.REACT_APP_API_URL}/api/blogs`,
-		{
-			credentials: 'same-origin',
-		}
-	)
+	const response: Response = await fetch(`http://localhost:4000/api/blogs`, {
+		credentials: 'same-origin',
+	})
 
 	return response
 }

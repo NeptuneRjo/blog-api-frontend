@@ -4,7 +4,7 @@ const signupUser = async (
 	username: string
 ): Promise<Response> => {
 	const response: Response = await fetch(
-		`${process.env.REACT_APP_API_URL}/api/users/signup`,
+		`http://localhost:4000/api/users/signup`,
 		{
 			method: 'POST',
 			body: JSON.stringify({

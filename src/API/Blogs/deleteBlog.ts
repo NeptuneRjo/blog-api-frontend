@@ -1,6 +1,6 @@
 const deleteBlog = async (id: string): Promise<Response> => {
 	const response: Response = await fetch(
-		`${process.env.REACT_APP_API_URL}/api/blogs/${id}`,
+		`http://localhost:4000/api/blogs/${id}`,
 		{
 			method: 'DELETE',
 			headers: {

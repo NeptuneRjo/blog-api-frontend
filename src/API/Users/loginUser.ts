@@ -3,7 +3,7 @@ const loginUser = async (
 	password: string
 ): Promise<Response> => {
 	const response: Response = await fetch(
-		`${process.env.REACT_APP_API_URL}/api/users/login`,
+		`http://localhost:4000/api/users/login`,
 		{
 			method: 'POST',
 			body: JSON.stringify({

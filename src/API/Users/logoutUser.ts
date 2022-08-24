@@ -1,6 +1,6 @@
 const logoutUser = async (): Promise<Response> => {
 	const response: Response = await fetch(
-		`${process.env.REACT_APP_API_URL}/api/users/logout`,
+		`http://localhost:4000/api/users/logout`,
 		{
 			method: 'POST',
 			headers: {
