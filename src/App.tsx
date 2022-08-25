@@ -32,17 +32,16 @@ const App: React.FC = () => {
 				setBlogs(json?.data)
 			}
 		})()
-		// ;(async function getUser() {
-		// 	const response = await fetchUser()
-		// 	const json = await response.json()
+		;(async function getUser() {
+			const response = await fetchUser()
+			const json = await response.json()
 
-		// 	if (!response.ok) {
-		// 		setError(json?.error)
-		// 	} else {
-		// 		sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
-		// 		setUser(JSON.parse(`${sessionStorage.getItem('user')}`))
-		// 	}
-		// })()
+			if (!response.ok) {
+				setError(json?.error)
+			} else {
+				sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+			}
+		})()
 
 		const sessionUser = sessionStorage.getItem('user')
 		if (sessionUser !== 'undefined') {

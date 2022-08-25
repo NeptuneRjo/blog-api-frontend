@@ -17,6 +17,16 @@ const loginUser = async (
 		}
 	)
 
+	// const response: AxiosResponse = await axios({
+	// 	method: 'post',
+	// 	url: 'http://localhost:4000/api/users/login',
+	// 	data: {
+	// 		email,
+	// 		password,
+	// 	},
+	// 	withCredentials: true,
+	// })
+
 	return response
 }
 

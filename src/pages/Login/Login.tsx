@@ -29,11 +29,11 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 
 			if (!response.ok) {
 				setError('Error Occured: Unable to loggin in user')
-			} else {
+			} else if (response.ok) {
 				setEmail('')
 				setPassword('')
 
-				setUser(json?.data?.user)
+				setUser(json?.user)
 				window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
 			}
 		}
@@ -47,7 +47,7 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 
 		if (!response.ok) {
 			setError(json?.error)
-		} else if (response.ok) {
+		} else {
 			setUser(json?.data?.user)
 			window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
 		}
