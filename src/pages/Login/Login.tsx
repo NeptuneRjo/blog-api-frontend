@@ -25,16 +25,21 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 			e.stopPropagation()
 		} else {
 			const response = await loginUser(email, password)
-			const json = await response.json()
+			// 	const json = await response.json()
 
-			if (!response.ok) {
-				setError('Error Occured: Unable to loggin in user')
-			} else if (response.ok) {
-				setEmail('')
-				setPassword('')
+			// 	if (!response.ok) {
+			// 		setError('Error Occured: Unable to loggin in user')
+			// 	} else if (response.ok) {
+			// 		setEmail('')
+			// 		setPassword('')
 
-				setUser(json?.user)
-				window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+			// 		setUser(json?.user)
+			// 		window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+			// 	}
+			if (response.error === null) {
+				setUser(response?.user)
+			} else {
+				setError(response?.error)
 			}
 		}
 
@@ -43,13 +48,19 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 
 	const handleLogout = async (): Promise<void> => {
 		const response = await logoutUser()
-		const json = await response.json()
+		// const json = await response.json()
 
-		if (!response.ok) {
-			setError(json?.error)
+		// if (!response.ok) {
+		// 	setError(json?.error)
+		// } else {
+		// 	setUser(json?.data?.user)
+		// 	window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+		// }
+
+		if (response.error === null) {
+			setUser(response?.user)
 		} else {
-			setUser(json?.data?.user)
-			window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+			setError(response?.error)
 		}
 	}
 

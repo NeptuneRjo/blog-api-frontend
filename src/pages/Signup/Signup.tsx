@@ -26,13 +26,18 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 			e.stopPropagation()
 		} else {
 			const response = await signupUser(email, password, username)
-			const json = await response.json()
+			// const json = await response.json()
 
-			if (!response.ok) {
-				setError(json?.error)
-			} else if (response.ok) {
-				setUser(json?.data?.user)
-				window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+			// if (!response.ok) {
+			// 	setError(json?.error)
+			// } else if (response.ok) {
+			// 	setUser(json?.data?.user)
+			// 	window.sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+			// }
+			if (response.error === null) {
+				setUser(response?.user)
+			} else {
+				setError(response?.error)
 			}
 		}
 
@@ -41,12 +46,17 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 
 	const handleLogout = async (): Promise<void> => {
 		const response = await logoutUser()
-		const json = await response.json()
+		// const json = await response.json()
 
-		if (!response.ok) {
-			setError(json?.error)
-		} else if (response.ok) {
-			setUser(json?.data?.user)
+		// if (!response.ok) {
+		// 	setError(json?.error)
+		// } else if (response.ok) {
+		// 	setUser(json?.data?.user)
+		// }
+		if (response.error === null) {
+			setUser(response?.user)
+		} else {
+			setError(response?.error)
 		}
 	}
 

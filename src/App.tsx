@@ -34,12 +34,16 @@ const App: React.FC = () => {
 		})()
 		;(async function getUser() {
 			const response = await fetchUser()
-			const json = await response.json()
 
-			if (!response.ok) {
-				setError(json?.error)
+			// if (!response.ok) {
+			// 	setError(json?.error)
+			// } else {
+			// 	sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+			// }
+			if (response.error === null) {
+				setUser(response?.user)
 			} else {
-				sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
+				setError(response?.error)
 			}
 		})()
 

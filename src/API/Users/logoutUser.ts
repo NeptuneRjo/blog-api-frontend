@@ -1,4 +1,4 @@
-const logoutUser = async (): Promise<Response> => {
+const logoutUser = async () => {
 	const response: Response = await fetch(
 		`http://localhost:4000/api/users/logout`,
 		{
@@ -9,8 +9,13 @@ const logoutUser = async (): Promise<Response> => {
 			credentials: 'same-origin',
 		}
 	)
+	const json = await response.json()
 
-	return response
+	if (response.ok) {
+		return { user: json?.data?.user, error: null }
+	} else {
+		return { user: null, error: json?.error }
+	}
 }
 
 export default logoutUser

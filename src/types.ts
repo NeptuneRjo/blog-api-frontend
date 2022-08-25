@@ -28,3 +28,8 @@ export interface CleanUserInt {
 	_id: string
 	role: string
 }
+
+export interface ApiResponseInt {
+	user: CleanUserInt | undefined | null
+	error: string | undefined | null
+}

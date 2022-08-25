@@ -2,7 +2,7 @@ const signupUser = async (
 	email: string,
 	password: string,
 	username: string
-): Promise<Response> => {
+) => {
 	const response: Response = await fetch(
 		`http://localhost:4000/api/users/signup`,
 		{
@@ -18,8 +18,13 @@ const signupUser = async (
 			credentials: 'same-origin',
 		}
 	)
+	const json = await response.json()
 
-	return response
+	if (response.ok) {
+		return { user: json?.data?.user, error: null }
+	} else {
+		return { user: null, error: json?.error }
+	}
 }
 
 export default signupUser

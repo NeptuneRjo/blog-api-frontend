@@ -1,7 +1,4 @@
-const loginUser = async (
-	email: string,
-	password: string
-): Promise<Response> => {
+const loginUser = async (email: string, password: string) => {
 	const response: Response = await fetch(
 		`http://localhost:4000/api/users/login`,
 		{
@@ -16,18 +13,13 @@ const loginUser = async (
 			credentials: 'same-origin',
 		}
 	)
+	const json = await response.json()
 
-	// const response: AxiosResponse = await axios({
-	// 	method: 'post',
-	// 	url: 'http://localhost:4000/api/users/login',
-	// 	data: {
-	// 		email,
-	// 		password,
-	// 	},
-	// 	withCredentials: true,
-	// })
-
-	return response
+	if (response.ok) {
+		return { user: json?.data?.user, error: null }
+	} else {
+		return { user: undefined, error: json?.error }
+	}
 }
 
 export default loginUser
