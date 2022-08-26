@@ -67,13 +67,7 @@ const App: React.FC = () => {
 					/>
 					<Route
 						path='/delete-blog/:id'
-						element={
-							<DeleteBlog
-								setError={setError}
-								setBlogs={setBlogs}
-								blogs={blogs}
-							/>
-						}
+						element={<DeleteBlog setBlogs={setBlogs} blogs={blogs} />}
 					/>
 					<Route path='/' element={<Dashboard blogs={blogs} />} />
 				</Routes>
