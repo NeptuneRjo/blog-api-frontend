@@ -7,16 +7,19 @@ const updateBlogWithNewComment = async (
 ): Promise<Response> => {
 	const newCommentsArray: CommentInt[] = [newComment, ...blog.comments]
 
-	const response: Response = await fetch(`/api/blogs/${id}`, {
-		method: 'PATCH',
-		body: JSON.stringify({
-			comments: newCommentsArray,
-		}),
-		headers: {
-			'Content-type': 'application/json; charset=UTF-8',
-		},
-		credentials: 'same-origin',
-	})
+	const response: Response = await fetch(
+		`${process.env.REACT_APP_API_URL}/api/blogs/${id}`,
+		{
+			method: 'PATCH',
+			body: JSON.stringify({
+				comments: newCommentsArray,
+			}),
+			headers: {
+				'Content-type': 'application/json; charset=UTF-8',
+			},
+			credentials: 'same-origin',
+		}
+	)
 
 	return response
 }
