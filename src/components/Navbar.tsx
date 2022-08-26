@@ -19,6 +19,7 @@ const Navbar: React.FC<Props> = ({ user, setUser }: Props) => {
 			setError(json?.error)
 		} else if (response.ok) {
 			setUser(json?.data?.user)
+			sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
 		}
 	}
 

@@ -32,6 +32,7 @@ const Signup: React.FC<Props> = ({ setUser, user }: Props) => {
 				setError(json?.error)
 			} else if (response.ok) {
 				setUser(json?.data?.user)
+				sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
 			}
 		}
 

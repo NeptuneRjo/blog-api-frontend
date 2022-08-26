@@ -31,6 +31,7 @@ const Login: React.FC<Props> = ({ setUser, user }: Props) => {
 				setError('Error Occured: Unable to loggin in user')
 			} else {
 				setUser(json?.data?.user)
+				sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
 			}
 		}
 
