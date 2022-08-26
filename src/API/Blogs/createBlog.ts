@@ -3,7 +3,7 @@ const createBlog = async (
 	body: string,
 	author: string
 ): Promise<Response> => {
-	const response: Response = await fetch(`http://localhost:4000/api/blogs`, {
+	const response: Response = await fetch(`/api/blogs`, {
 		method: 'POST',
 		body: JSON.stringify({
 			title,

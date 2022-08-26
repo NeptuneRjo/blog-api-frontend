@@ -41,17 +41,18 @@ const App: React.FC = () => {
 			// 	sessionStorage.setItem('user', JSON.stringify(json?.data?.user))
 			// }
 			if (response.error === null) {
+				console.log(response.user)
 				setUser(response?.user)
 			} else {
 				setError(response?.error)
 			}
 		})()
 
-		const sessionUser = sessionStorage.getItem('user')
-		if (sessionUser !== 'undefined') {
-			setUser(JSON.parse(`${sessionUser}`))
-			console.log(sessionUser)
-		}
+		// const sessionUser = sessionStorage.getItem('user')
+		// if (sessionUser !== 'undefined') {
+		// 	setUser(JSON.parse(`${sessionUser}`))
+		// 	console.log(sessionUser)
+		// }
 	}, [])
 
 	return (

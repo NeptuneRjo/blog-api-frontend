@@ -1,5 +1,5 @@
 const fetchUser = async () => {
-	const response: Response = await fetch(`http://localhost:4000/api/users`, {
+	const response: Response = await fetch(`/api/users`, {
 		headers: {
 			'Content-type': 'application/json; charset=UTF-8',
 		},

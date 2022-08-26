@@ -1,5 +1,5 @@
 const fetchAllBlogs = async (): Promise<Response> => {
-	const response: Response = await fetch(`http://localhost:4000/api/blogs`, {
+	const response: Response = await fetch(`/api/blogs`, {
 		credentials: 'same-origin',
 	})
 
