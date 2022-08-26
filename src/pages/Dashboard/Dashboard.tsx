@@ -14,8 +14,8 @@ const Dashboard: React.FC<Props> = ({ blogs }: Props) => {
 			<h3 className='title'>Blogs</h3>
 			{blogs.length > 0 && (
 				<div className='dashboard-grid'>
-					{blogs.map((blog) => (
-						<div className='dashboard-grid-item'>
+					{blogs.map((blog, key) => (
+						<div className='dashboard-grid-item' key={key}>
 							<BlogCard blog={blog} />
 						</div>
 					))}
