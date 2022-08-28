@@ -16,7 +16,7 @@ import 'bootswatch/dist/morph/bootstrap.min.css'
 import './App.css'
 
 const App: React.FC = () => {
-	const [blogs, setBlogs] = useState<BlogInt[] | []>([])
+	const [blogs, setBlogs] = useState<BlogInt[] | [] | undefined>(undefined)
 	const [user, setUser] = useState<CleanUserInt | undefined>(undefined)
 
 	const [error, setError] = useState<null | string>(null)

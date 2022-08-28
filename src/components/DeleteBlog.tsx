@@ -5,8 +5,8 @@ import { deleteBlog } from '../API/api-exports'
 import { useParams } from 'react-router-dom'
 
 type Props = {
-	setBlogs: React.Dispatch<React.SetStateAction<[] | BlogInt[]>>
-	blogs: [] | BlogInt[]
+	setBlogs: React.Dispatch<React.SetStateAction<[] | BlogInt[] | undefined>>
+	blogs: [] | BlogInt[] | undefined
 }
 
 const DeleteBlog: React.FC<Props> = ({ setBlogs, blogs }: Props) => {
@@ -23,12 +23,15 @@ const DeleteBlog: React.FC<Props> = ({ setBlogs, blogs }: Props) => {
 			setError(json?.error)
 		} else if (response.ok) {
 			const deletedBlogId = json?.data?._id
-			const cleanedBlogArray = blogs.filter((blog) => {
-				return blog?._id !== deletedBlogId
-			})
 
-			setBlogs(cleanedBlogArray)
-			setDeleted(true)
+			if (blogs !== undefined) {
+				const cleanedBlogArray = blogs.filter((blog) => {
+					return blog?._id !== deletedBlogId
+				})
+
+				setBlogs(cleanedBlogArray)
+				setDeleted(true)
+			}
 		}
 	}
 

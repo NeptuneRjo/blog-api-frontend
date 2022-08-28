@@ -5,8 +5,8 @@ import { createBlog } from '../../API/api-exports'
 
 type Props = {
 	user: CleanUserInt | undefined
-	blogs: [] | BlogInt[]
-	setBlogs: React.Dispatch<React.SetStateAction<[] | BlogInt[]>>
+	blogs: [] | BlogInt[] | undefined
+	setBlogs: React.Dispatch<React.SetStateAction<[] | BlogInt[] | undefined>>
 }
 
 const CreateBlog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
@@ -32,7 +32,7 @@ const CreateBlog: React.FC<Props> = ({ user, setBlogs, blogs }: Props) => {
 				if (!response.ok) {
 					setError(json?.error)
 				} else if (response.ok) {
-					setBlogs([...blogs, json?.data])
+					setBlogs([...(blogs as BlogInt[]), json?.data])
 
 					setCreated(true)
 					setTitle('')
