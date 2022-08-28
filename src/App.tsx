@@ -10,7 +10,7 @@ import {
 import { Route, Routes } from 'react-router-dom'
 import { HashRouter } from 'react-router-dom'
 import { BlogInt, CleanUserInt } from './types'
-import { fetchAllBlogs, fetchUser } from './API/api-exports'
+import { fetchAllBlogs } from './API/api-exports'
 
 import 'bootswatch/dist/morph/bootstrap.min.css'
 import './App.css'
