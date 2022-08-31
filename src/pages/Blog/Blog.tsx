@@ -108,7 +108,7 @@ const Blog: React.FC<Props> = ({ user }: Props) => {
 						</div>
 					))}
 				{comments.length === 0 && (
-					<div className='action-text'>
+					<div className='blog-comments-empty'>
 						<p>No comments yet...</p>
 					</div>
 				)}
