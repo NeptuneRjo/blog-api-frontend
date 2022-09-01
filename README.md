@@ -5,6 +5,7 @@ A simple frontend React-Typescript application used to view blogs retrieved from
 Visit the live app [here](https://neptunerjo.github.io/blog-api-frontend)  
 Visit the API repo [here](https://github.com/NeptuneRjo/blog-api)
 
+** The Site is somewhat slow due to the method in which the API is hosted -- please bear with it **
 ![Creating and deleting a blog](createBlog.gif)
 ![Writing a new comment](newComment.gif)
 
