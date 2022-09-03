@@ -56,22 +56,25 @@ describe('dashboard', () => {
 	})
 })
 
-describe.only('blog page', () => {
+describe('blog page', () => {
 	beforeEach(() => {
+		// Intercepts the dashboard call
+		cy.fixture('blogs').then((blogs) => {
+			cy.intercept('GET', `${Cypress.env('server')}/api/blogs`, blogs).as(
+				'blogsCall'
+			)
+			cy.visit(siteUrl)
+			cy.wait('@blogsCall')
+		})
+
+		// Intercepts the call for the individual blog
+		// and visits the blog page through the visit button on dashboard
 		cy.fixture('blog').then((blog) => {
 			cy.intercept(
 				'GET',
 				`${Cypress.env('server')}/api/blogs/6301d878aab1bd4c98e654af`,
 				blog
 			).as('blogCall')
-
-			cy.fixture('blogs').then((blogs) => {
-				cy.intercept('GET', `${Cypress.env('server')}/api/blogs`, blogs).as(
-					'blogsCall'
-				)
-				cy.visit(siteUrl)
-				cy.wait('@blogsCall')
-			})
 
 			cy.get('a.btn.btn-primary').eq(0).click()
 			cy.wait('@blogCall')
@@ -94,9 +97,7 @@ describe.only('blog page', () => {
 	})
 
 	it('displays the correct author', () => {
-		cy.get('h6.blog-author')
-			.should('be.visible')
-			.contains('Written by NeptuneRjo')
+		cy.get('h6.blog-author').should('be.visible').contains('NeptuneRjo')
 	})
 
 	it('displays the body', () => {
@@ -106,6 +107,18 @@ describe.only('blog page', () => {
 	})
 
 	it('displays the comments form', () => {
-		cy.get('.blog-comments-new.form').should('be.visible')
+		cy.get('.blog-comments-new form').should('be.visible')
+	})
+
+	it('displays a single comment', () => {
+		cy.get('div.comment-main').should('have.length', 1)
+	})
+
+	it('displays the proper comment body', () => {
+		cy.get('div.comment-body').should('be.visible').contains('Hello World')
+	})
+
+	it('displays the proper comment author', () => {
+		cy.get('div.comment-username').should('be.visible').contains('NeptuneRjo')
 	})
 })
